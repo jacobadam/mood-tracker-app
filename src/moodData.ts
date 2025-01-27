@@ -1,5 +1,3 @@
-// src/moodData.ts
-
 import pleasantMood from "./assets/lottie/pleasant.json";
 import sadMood from "./assets/lottie/sad.json";
 import excitedMood from "./assets/lottie/excited.json";
@@ -9,134 +7,79 @@ export interface Mood {
   type: "PLEASANT" | "SAD" | "EXCITED";
   createdAt: string;
   lottie: any;
-  date: string;
 }
 
 export const moodsData: Mood[] = [
   {
     id: 1,
     type: "PLEASANT",
-    createdAt: "2025-01-01T00:00:00Z",
+    createdAt: "2025-01-25T20:37:07.398Z",
     lottie: pleasantMood,
-    date: new Date("2025-01-01T00:00:00Z").toLocaleDateString(),
   },
   {
     id: 2,
-    type: "SAD",
-    createdAt: "2025-01-02T00:00:00Z",
-    lottie: sadMood,
-    date: new Date("2025-01-02T00:00:00Z").toLocaleDateString(),
+    type: "EXCITED",
+    createdAt: "2025-01-25T20:45:00.733Z",
+    lottie: excitedMood,
   },
   {
     id: 3,
     type: "EXCITED",
-    createdAt: "2025-01-03T00:00:00Z",
+    createdAt: "2025-01-25T20:47:27.355Z",
     lottie: excitedMood,
-    date: new Date("2025-01-03T00:00:00Z").toLocaleDateString(),
   },
   {
     id: 4,
-    type: "PLEASANT",
-    createdAt: "2025-01-04T00:00:00Z",
-    lottie: pleasantMood,
-    date: new Date("2025-01-04T00:00:00Z").toLocaleDateString(),
+    type: "EXCITED",
+    createdAt: "2025-01-25T20:47:33.048Z",
+    lottie: excitedMood,
   },
   {
     id: 5,
-    type: "SAD",
-    createdAt: "2025-01-05T00:00:00Z",
-    lottie: sadMood,
-    date: new Date("2025-01-05T00:00:00Z").toLocaleDateString(),
+    type: "EXCITED",
+    createdAt: "2025-01-25T20:47:38.726Z",
+    lottie: excitedMood,
   },
   {
     id: 6,
     type: "EXCITED",
-    createdAt: "2025-01-06T00:00:00Z",
+    createdAt: "2025-01-25T20:47:47.752Z",
     lottie: excitedMood,
-    date: new Date("2025-01-06T00:00:00Z").toLocaleDateString(),
   },
   {
     id: 7,
-    type: "PLEASANT",
-    createdAt: "2025-01-07T00:00:00Z",
-    lottie: pleasantMood,
-    date: new Date("2025-01-07T00:00:00Z").toLocaleDateString(),
+    type: "SAD",
+    createdAt: "2025-01-27T21:48:15.049Z",
+    lottie: sadMood,
   },
   {
     id: 8,
-    type: "SAD",
-    createdAt: "2025-01-08T00:00:00Z",
-    lottie: sadMood,
-    date: new Date("2025-01-08T00:00:00Z").toLocaleDateString(),
+    type: "PLEASANT",
+    createdAt: "2025-01-28T10:37:07.398Z",
+    lottie: pleasantMood,
   },
   {
     id: 9,
     type: "EXCITED",
-    createdAt: "2025-01-09T00:00:00Z",
+    createdAt: "2025-01-28T10:45:00.733Z",
     lottie: excitedMood,
-    date: new Date("2025-01-09T00:00:00Z").toLocaleDateString(),
   },
   {
     id: 10,
-    type: "PLEASANT",
-    createdAt: "2025-01-10T00:00:00Z",
-    lottie: pleasantMood,
-    date: new Date("2025-01-10T00:00:00Z").toLocaleDateString(),
+    type: "SAD",
+    createdAt: "2025-01-29T09:47:27.355Z",
+    lottie: sadMood,
   },
   {
     id: 11,
-    type: "SAD",
-    createdAt: "2025-01-11T00:00:00Z",
-    lottie: sadMood,
-    date: new Date("2025-01-11T00:00:00Z").toLocaleDateString(),
+    type: "PLEASANT",
+    createdAt: "2025-01-29T09:47:33.048Z",
+    lottie: pleasantMood,
   },
   {
     id: 12,
     type: "EXCITED",
-    createdAt: "2025-01-12T00:00:00Z",
+    createdAt: "2025-01-30T15:47:38.726Z",
     lottie: excitedMood,
-    date: new Date("2025-01-12T00:00:00Z").toLocaleDateString(),
-  },
-  {
-    id: 13,
-    type: "PLEASANT",
-    createdAt: "2025-01-13T00:00:00Z",
-    lottie: pleasantMood,
-    date: new Date("2025-01-13T00:00:00Z").toLocaleDateString(),
-  },
-  {
-    id: 14,
-    type: "SAD",
-    createdAt: "2025-01-14T00:00:00Z",
-    lottie: sadMood,
-    date: new Date("2025-01-14T00:00:00Z").toLocaleDateString(),
-  },
-  {
-    id: 15,
-    type: "EXCITED",
-    createdAt: "2025-01-15T00:00:00Z",
-    lottie: excitedMood,
-    date: new Date("2025-01-15T00:00:00Z").toLocaleDateString(),
-  },
-  {
-    id: 16,
-    type: "PLEASANT",
-    createdAt: "2025-01-16T00:00:00Z",
-    lottie: pleasantMood,
-    date: new Date("2025-01-16T00:00:00Z").toLocaleDateString(),
-  },
-  {
-    id: 17,
-    type: "SAD",
-    createdAt: "2025-01-17T00:00:00Z",
-    lottie: sadMood,
-    date: new Date("2025-01-17T00:00:00Z").toLocaleDateString(),
-  },
-  {
-    id: 18,
-    type: "EXCITED",
-    createdAt: "2025-01-18T00:00:00Z",
-    lottie: excitedMood,
-    date: new Date("2025-01-18T00:00:00Z").toLocaleDateString(),
   },
 ];
