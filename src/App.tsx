@@ -1,9 +1,10 @@
 import React from "react";
+import MoodTrackerApp from "./components/MoodTrackerApp";
 
 const App: React.FC = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-lavender-100">
-      <h1 className="text-4xl font-bold text-lavender-300">Hello World!</h1>
+    <div className="bg-gray-100">
+      <MoodTrackerApp />
     </div>
   );
 };
