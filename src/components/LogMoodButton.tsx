@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import MoodSelectorModal from "./MoodSelectorModal";
 
+type MoodType = "PLEASANT" | "SAD" | "EXCITED";
+
 export default function LogMoodButton() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -12,6 +14,11 @@ export default function LogMoodButton() {
     setIsModalOpen(false);
   };
 
+  const handleMoodSelect = (mood: MoodType) => {
+    console.log(mood);
+    closeModal();
+  };
+
   return (
     <>
       <button
@@ -21,7 +28,12 @@ export default function LogMoodButton() {
         LOG MOOD
       </button>
 
-      {isModalOpen && <MoodSelectorModal onClose={closeModal} />}
+      {isModalOpen && (
+        <MoodSelectorModal
+          onClose={closeModal}
+          onMoodSelect={handleMoodSelect}
+        />
+      )}
     </>
   );
 }
