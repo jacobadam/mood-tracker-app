@@ -1,6 +1,7 @@
 import React from "react";
 import MoodAnimationContainer from "./MoodAnimationContainer";
 import MoodLogContainer from "./MoodLogContainer";
+import LogMoodButton from "./LogMoodButton";
 
 const MoodTrackerApp: React.FC = () => {
   return (
@@ -11,6 +12,10 @@ const MoodTrackerApp: React.FC = () => {
 
       <div className="relative flex flex-1 max-w-[30%] h-full">
         <MoodLogContainer />
+
+        <div className="absolute flex items-center justify-center bottom-4 w-full">
+          <LogMoodButton />
+        </div>
       </div>
     </div>
   );
