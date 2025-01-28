@@ -11,14 +11,20 @@ const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
   const formattedMood =
     mood.charAt(0).toUpperCase() + mood.slice(1).toLowerCase();
 
-  const formattedDate = new Date(date).toLocaleString("en-US", {
+  const newDate = new Date(date);
+  const formattedDate = newDate.toLocaleString("en-US", {
     weekday: "long",
     month: "short",
     day: "numeric",
+  });
+
+  const formattedTime = newDate.toLocaleString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
   });
+
+  const finalFormattedDate = `${formattedDate} at ${formattedTime}`;
 
   const defaultOptions = {
     loop: true,
@@ -39,7 +45,7 @@ const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
         <span className="text-lg font-medium text-gray-800">
           {formattedMood}
         </span>
-        <span className="text-sm text-gray-500">{formattedDate}</span>
+        <span className="text-sm text-gray-500">{finalFormattedDate}</span>
       </div>
     </div>
   );
