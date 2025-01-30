@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MoodSelectorModal from "./MoodSelectorModal";
-import { addMood } from "../moodTrackerApi";
+import { addMood } from "../api/moodTrackerApi";
 
 type MoodType = "PLEASANT" | "SAD" | "EXCITED";
 

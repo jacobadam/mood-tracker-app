@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MoodCard from "./MoodCard";
-import { fetchMoods } from "../moodTrackerApi";
+import { fetchMoods } from "../api/moodTrackerApi";
 import pleasantLottie from "../assets/lottie/pleasant.json";
 import sadLottie from "../assets/lottie/sad.json";
 import excitedLottie from "../assets/lottie/excited.json";
