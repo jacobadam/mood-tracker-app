@@ -5,17 +5,14 @@ import LogMoodButton from "./LogMoodButton";
 
 const MoodTrackerApp: React.FC = () => {
   return (
-    <div className="relative flex h-screen items-center justify-center p-12 box-border">
-      <div className="flex flex-1 max-w-[70%] h-full">
+    <div className="relative flex flex-col md:flex-row h-screen items-center justify-center p-12 box-border">
+      <div className="flex flex-1 max-w-full">
         <MoodAnimationContainer />
       </div>
 
-      <div className="relative flex flex-1 max-w-[30%] h-full">
+      <div className="relative flex flex-1 max-w-full md:max-w-[25%] h-full flex-col items-center px-16">
         <MoodLogContainer />
-
-        <div className="absolute flex items-center justify-center bottom-4 w-full">
-          <LogMoodButton />
-        </div>
+        <LogMoodButton />
       </div>
     </div>
   );
