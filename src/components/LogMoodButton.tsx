@@ -1,21 +1,33 @@
 import React, { useState } from "react";
 import MoodSelectorModal from "./MoodSelectorModal";
+import { addMood } from "../moodTrackerApi";
 
 type MoodType = "PLEASANT" | "SAD" | "EXCITED";
 
-export default function LogMoodButton() {
+const LogMoodButton: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  const apiKey = process.env.REACT_APP_API_KEY;
+  if (!apiKey) {
+    console.error("API key is missing.");
+  }
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  const handleMoodSelect = (mood: MoodType) => {
-    closeModal();
+  const handleMoodSelect = async (mood: MoodType) => {
+    if (!apiKey) {
+      console.error("API key is missing.");
+      return;
+    }
+
+    try {
+      await addMood(mood, apiKey);
+      console.log(`Mood "${mood}" successfully posted.`);
+      closeModal();
+    } catch (error) {
+      console.error("Failed to post mood:", (error as Error).message);
+    }
   };
 
   return (
@@ -35,4 +47,6 @@ export default function LogMoodButton() {
       )}
     </>
   );
-}
+};
+
+export default LogMoodButton;
