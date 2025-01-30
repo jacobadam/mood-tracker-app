@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Lottie from "react-lottie";
+import { motion } from "framer-motion";
 
 interface MoodCardProps {
   lottie: any;
@@ -8,7 +9,7 @@ interface MoodCardProps {
 }
 
 const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   const formattedMood =
     mood.charAt(0).toUpperCase() + mood.slice(1).toLowerCase();
@@ -37,18 +38,29 @@ const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
     },
   };
 
+  // add functionality later
+  const handleClick = () => {
+    setIsSelected(!isSelected);
+  };
+
   return (
-    <button
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="flex items-center justify-center w-full h-20 p-6 rounded-3xl bg-white border-none"
+    <motion.button
+      onClick={handleClick}
+      whileHover={{
+        scale: 1.1,
+        backgroundColor: "var(--Lavender-200---Opacity, #C2C0FA80)",
+      }}
+      transition={{ duration: 0.2 }}
+      className={`flex items-center justify-center p-6 h-20 rounded-3xl bg-white border-2 
+      focus:outline-none focus:ring-2 transition-transform 
+      ${isSelected ? "border-lavender-300" : "border-transparent"}`}
     >
       <div className="flex items-center justify-center gap-4">
         <div className="w-16 h-12">
           <Lottie
             options={defaultOptions}
-            isStopped={!isHovered}
-            isPaused={false}
+            isStopped
+            isPaused
             className="w-full h-full"
           />
         </div>
@@ -60,7 +72,7 @@ const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
           <span className="text-sm text-gray-500">{finalFormattedDate}</span>
         </div>
       </div>
-    </button>
+    </motion.button>
   );
 };
 
