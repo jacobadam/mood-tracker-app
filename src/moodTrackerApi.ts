@@ -1,10 +1,6 @@
 const API_URL: string =
   process.env.REACT_APP_API_URL || "http://localhost:3001";
 
-if (!API_URL) {
-  throw new Error("API_URL is not defined");
-}
-
 interface Mood {
   id: number;
   type: "SAD" | "EXCITED" | "PLEASANT";
@@ -20,6 +16,28 @@ export async function fetchMoods(apiKey: string): Promise<Mood[]> {
 
   if (!response.ok) {
     throw new Error("Failed to fetch moods");
+  }
+
+  return response.json();
+}
+
+export async function addMood(
+  type: "SAD" | "EXCITED" | "PLEASANT",
+  apiKey: string
+): Promise<Mood> {
+  console.log(type, apiKey);
+
+  const response = await fetch(`${API_URL}/moods`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({ type }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add mood");
   }
 
   return response.json();
