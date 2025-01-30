@@ -4,7 +4,7 @@ import { moodsData } from "../moodData";
 
 const MoodLogContainer: React.FC = () => {
   return (
-    <div className="flex flex-col gap-2 p-4 overflow-y-auto w-full no-scrollbar items-center">
+    <div className="fade-mask flex flex-col gap-2 p-4 overflow-y-auto w-full no-scrollbar items-center">
       {moodsData.map((mood) => (
         <MoodCard
           key={mood.id}
