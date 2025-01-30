@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MoodCard from "./MoodCard";
 import { fetchMoods } from "../api/moodTrackerApi";
+import { connectWebSocket, disconnectWebSocket } from "../utils/websocket";
 import pleasantLottie from "../assets/lottie/pleasant.json";
 import sadLottie from "../assets/lottie/sad.json";
 import excitedLottie from "../assets/lottie/excited.json";
@@ -32,7 +33,6 @@ const MoodLogContainer: React.FC = () => {
         }
 
         const fetchedMoods: Mood[] = await fetchMoods(apiKey);
-
         setMoods(fetchedMoods);
       } catch (error) {
         console.error("Failed to fetch moods:", (error as Error).message);
@@ -40,6 +40,23 @@ const MoodLogContainer: React.FC = () => {
     };
 
     loadMoods();
+
+    const handleNewMood = (newMood: Mood) => {
+      setMoods((prevMoods) => [
+        {
+          ...newMood,
+          lottie: moodMap[newMood.type],
+          date: new Date(newMood.createdAt).toLocaleDateString(),
+        },
+        ...prevMoods,
+      ]);
+    };
+
+    connectWebSocket(handleNewMood);
+
+    return () => {
+      disconnectWebSocket();
+    };
   }, []);
 
   return (
