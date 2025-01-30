@@ -36,16 +36,18 @@ const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
   };
 
   return (
-    <div className="flex w-80 p-4 rounded-3xl bg-white">
-      <div className="w-12 h-12">
-        <Lottie options={defaultOptions} className="w-full h-full" />
-      </div>
+    <div className="flex items-center justify-center w-full py-4 rounded-3xl bg-white">
+      <div className="flex items-center justify-center gap-4">
+        <div className="w-16 h-12">
+          <Lottie options={defaultOptions} className="w-full h-full" />
+        </div>
 
-      <div className="flex flex-col justify-center items-center w-full h-full text-center">
-        <span className="text-lg font-medium text-gray-800">
-          {formattedMood}
-        </span>
-        <span className="text-sm text-gray-500">{finalFormattedDate}</span>
+        <div className="flex flex-col justify-center items-start w-full h-full">
+          <span className="text-lg font-medium text-gray-800">
+            {formattedMood}
+          </span>
+          <span className="text-sm text-gray-500">{finalFormattedDate}</span>
+        </div>
       </div>
     </div>
   );
