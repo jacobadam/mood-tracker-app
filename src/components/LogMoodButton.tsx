@@ -15,7 +15,6 @@ export default function LogMoodButton() {
   };
 
   const handleMoodSelect = (mood: MoodType) => {
-    console.log(mood);
     closeModal();
   };
 
@@ -23,7 +22,7 @@ export default function LogMoodButton() {
     <>
       <button
         onClick={openModal}
-        className="w-[352px] h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
+        className="w-full h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
       >
         LOG MOOD
       </button>
