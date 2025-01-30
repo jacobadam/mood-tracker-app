@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import MoodCard from "./MoodCard";
 import { fetchMoods } from "../api/moodTrackerApi";
 import { connectWebSocket, disconnectWebSocket } from "../utils/websocket";
@@ -61,14 +62,23 @@ const MoodLogContainer: React.FC = () => {
 
   return (
     <div className="fade-mask flex flex-col gap-2 p-4 overflow-y-auto w-full no-scrollbar items-center">
-      {moods.map((mood) => (
-        <MoodCard
-          key={mood.id}
-          lottie={moodMap[mood.type]}
-          mood={mood.type}
-          date={mood.createdAt}
-        />
-      ))}
+      <AnimatePresence initial={false}>
+        {moods.map((mood) => (
+          <motion.div
+            key={mood.id}
+            layout
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <MoodCard
+              lottie={moodMap[mood.type]}
+              mood={mood.type}
+              date={mood.createdAt}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
