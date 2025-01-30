@@ -51,7 +51,7 @@ const MoodCard: React.FC<MoodCardProps> = ({ lottie, mood, date }) => {
         backgroundColor: "var(--Lavender-200---Opacity, #C2C0FA80)",
       }}
       transition={{ duration: 0.2 }}
-      className={`flex items-center justify-center p-6 h-20 rounded-3xl bg-white border-2 
+      className={`flex items-center w-full justify-center px-10 h-20 rounded-3xl bg-white border-2 
       focus:outline-none focus:ring-2 transition-transform 
       ${isSelected ? "border-lavender-300" : "border-transparent"}`}
     >
