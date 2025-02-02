@@ -34,7 +34,7 @@ const LogMoodButton: React.FC = () => {
     <>
       <button
         onClick={openModal}
-        className="w-full h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
+        className="w-full min-w-80 h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
       >
         LOG MOOD
       </button>
