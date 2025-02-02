@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
 import { ExcitedMoodConfig } from "../mood-configs/ExcitedMoodConfig";
 import { MoodConfig } from "../types/mood-config-types";
+import gsap from "gsap";
 
 type MoodProps = {
   newMood?: "PLEASANT" | "SAD" | "EXCITED";
@@ -26,12 +27,25 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
   );
 
   const [exit, setExit] = useState(false);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const [backgroundColour, setBackgroundColour] = useState(
+    `linear-gradient(${moodConfigs["PLEASANT"].targetColors})`
+  );
 
   useEffect(() => {
+    const backgroundColour = moodConfigs[newMood].targetColors;
+
+    setBackgroundColour(backgroundColour);
     if (newMood && newMood !== currentConfig.id) {
+      gsap.to(backgroundRef.current, {
+        duration: 5,
+        backgroundImage: `linear-gradient(${backgroundColour})`,
+        ease: "power2.inOut",
+      });
+
       setExit(true);
     }
-  }, [newMood, currentConfig]);
+  }, [newMood]);
 
   const handleExitComplete = () => {
     if (newMood && moodConfigs[newMood]) {
@@ -41,22 +55,24 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
   };
 
   return (
-    <div>
+    <div
+      ref={backgroundRef}
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundImage: backgroundColour,
+      }}
+    >
       <motion.svg
-        width={460}
-        height={430}
+        width="100%"
+        height="100%"
         viewBox="0 0 460 430"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g>
           <motion.g id="BackgroundGroup">
-            <motion.rect
-              id="Background"
-              width={460}
-              height={430}
-              fill={`url(#${currentConfig.backgroundGradientId})`}
-            />
+            <motion.rect id="Background" width={460} height={430} />
           </motion.g>
 
           <AnimatePresence onExitComplete={handleExitComplete}>
@@ -85,7 +101,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d={element.d}
-                      fill={`url(#${element.fill.split("#")[1]}`}
+                      fill={element.fill}
                       initial={element.initial}
                       animate={element.animate}
                       exit={element.exit}
