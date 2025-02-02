@@ -3,6 +3,7 @@ import { MoodConfig } from "../types/mood-config-types";
 export const ExcitedMoodConfig: MoodConfig = {
   id: "EXCITED",
   backgroundGradientId: "paint0_linear_51_4614",
+  targetColors: ["#FF8CD1", "#FFE05B"],
   elements: [
     {
       id: "Sun",
@@ -14,7 +15,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       fill: "url(#paint4_linear_51_4614)",
       initial: { y: 430, duration: 3 },
       animate: { y: 0, scale: [1, 1.2, 1] },
-      exit: { y: 430, transition: { duration: 5.5 } },
+      exit: { y: 430, transition: { duration: 4.2 } },
       transition: {
         duration: 5,
         scale: {
@@ -32,7 +33,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       fill: "url(#paint2_linear_51_4614)",
       initial: { y: 200 },
       animate: { y: 0, x: [0, -20, 0] },
-      exit: { y: 200, transition: { duration: 3.6, delay: 3.7 } },
+      exit: { y: 200, transition: { duration: 2.4, delay: 2.8 } },
       transition: {
         duration: 4,
         x: {
@@ -50,7 +51,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       fill: "url(#paint3_linear_51_4614)",
       initial: { y: 200 },
       animate: { y: 0, x: [0, -20, 0] },
-      exit: { y: 200, transition: { duration: 3.6, delay: 3.7 } },
+      exit: { y: 200, transition: { duration: 2.4, delay: 2.8 } },
       transition: {
         duration: 4,
         x: {
