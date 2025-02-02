@@ -28,18 +28,18 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const [backgroundColour, setBackgroundColour] = useState(
+  const [backgroundColor, setBackgroundColor] = useState(
     `linear-gradient(${moodConfigs["PLEASANT"].targetColors})`
   );
 
   useEffect(() => {
-    const backgroundColour = moodConfigs[newMood].targetColors;
+    const backgroundColor = moodConfigs[newMood].targetColors;
 
-    setBackgroundColour(backgroundColour);
+    setBackgroundColor(backgroundColor);
     if (newMood && newMood !== currentConfig.id) {
       gsap.to(backgroundRef.current, {
         duration: 5,
-        backgroundImage: `linear-gradient(${backgroundColour})`,
+        backgroundImage: `linear-gradient(${backgroundColor})`,
         ease: "power2.inOut",
       });
 
@@ -60,7 +60,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
       style={{
         width: "100%",
         height: "100%",
-        backgroundImage: backgroundColour,
+        backgroundImage: backgroundColor,
       }}
     >
       <motion.svg
