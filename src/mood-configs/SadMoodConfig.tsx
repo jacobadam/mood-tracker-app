@@ -93,7 +93,7 @@ export const SadMoodConfig: MoodConfig = {
       y1: 0,
       x2: 0,
       y2: 850,
-      stops: [{ color: "#195BD1" }, { offset: 1, color: "#97A3FF" }],
+      stops: [{ stopColor: "#195BD1" }, { offset: 1, stopColor: "#97A3FF" }],
     },
     {
       id: "paint1_linear_51_4607",
@@ -101,7 +101,7 @@ export const SadMoodConfig: MoodConfig = {
       y1: 266.796,
       x2: 217.139,
       y2: 471.773,
-      stops: [{ color: "#5F83ED" }, { offset: 1, color: "#1F42A7" }],
+      stops: [{ stopColor: "#5F83ED" }, { offset: 1, stopColor: "#1F42A7" }],
     },
     {
       id: "paint2_linear_51_4607",
@@ -109,7 +109,7 @@ export const SadMoodConfig: MoodConfig = {
       y1: 345.722,
       x2: 463,
       y2: 567.509,
-      stops: [{ color: "#5F83ED" }, { offset: 1, color: "#1F42A7" }],
+      stops: [{ stopColor: "#5F83ED" }, { offset: 1, stopColor: "#1F42A7" }],
     },
     {
       id: "paint3_linear_51_4607",
@@ -118,8 +118,8 @@ export const SadMoodConfig: MoodConfig = {
       x2: 73.1361,
       y2: 213.112,
       stops: [
-        { color: "white" },
-        { offset: 1, color: "white", stopOpacity: 0.01 },
+        { stopColor: "white" },
+        { offset: 1, stopColor: "white", stopOpacity: 0.01 },
       ],
     },
     {
@@ -129,8 +129,8 @@ export const SadMoodConfig: MoodConfig = {
       x2: 359.627,
       y2: 156.715,
       stops: [
-        { color: "white" },
-        { offset: 1, color: "white", stopOpacity: 0.1 },
+        { stopColor: "white" },
+        { offset: 1, stopColor: "white", stopOpacity: 0.1 },
       ],
     },
     {
@@ -140,8 +140,8 @@ export const SadMoodConfig: MoodConfig = {
       x2: 164.43,
       y2: 91.6434,
       stops: [
-        { color: "white" },
-        { offset: 1, color: "white", stopOpacity: 0.1 },
+        { stopColor: "white" },
+        { offset: 1, stopColor: "white", stopOpacity: 0.1 },
       ],
     },
   ],

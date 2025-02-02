@@ -88,7 +88,10 @@ export const PleasantMoodConfig: MoodConfig = {
       y1: 0,
       x2: 0,
       y2: 430.592,
-      stops: [{ color: "#A2E9FF" }, { offset: 0.552083, color: "#DDFDFF" }],
+      stops: [
+        { stopColor: "#A2E9FF" },
+        { offset: 0.552083, stopColor: "#DDFDFF" },
+      ],
     },
     {
       id: "paint1_linear_51_4595",
@@ -96,7 +99,7 @@ export const PleasantMoodConfig: MoodConfig = {
       y1: 250.917,
       x2: 539.693,
       y2: 464.906,
-      stops: [{ color: "#AAF3FA" }, { offset: 1, color: "#D5FAFD" }],
+      stops: [{ stopColor: "#AAF3FA" }, { offset: 1, stopColor: "#D5FAFD" }],
     },
     {
       id: "paint2_linear_51_4595",
@@ -104,7 +107,7 @@ export const PleasantMoodConfig: MoodConfig = {
       y1: 285.823,
       x2: -100.373,
       y2: 477.047,
-      stops: [{ color: "#7EDEE7" }, { offset: 1, color: "#B5F1F5" }],
+      stops: [{ stopColor: "#7EDEE7" }, { offset: 1, stopColor: "#B5F1F5" }],
     },
     {
       id: "paint3_linear_51_4595",
@@ -113,9 +116,9 @@ export const PleasantMoodConfig: MoodConfig = {
       x2: 375.515,
       y2: 140.129,
       stops: [
-        { color: "#FEFFCA" },
-        { offset: 0.9999, color: "white" },
-        { offset: 1, color: "#FEFFCA", stopOpacity: 0 },
+        { stopColor: "#FEFFCA" },
+        { offset: 0.9999, stopColor: "white" },
+        { offset: 1, stopColor: "#FEFFCA", stopOpacity: 0 },
       ],
     },
     {
@@ -124,7 +127,7 @@ export const PleasantMoodConfig: MoodConfig = {
       y1: 365.247,
       x2: -5.04382,
       y2: 513.47,
-      stops: [{ color: "#4297A8" }, { offset: 1, color: "#77C8D3" }],
+      stops: [{ stopColor: "#4297A8" }, { offset: 1, stopColor: "#77C8D3" }],
     },
   ],
 };
