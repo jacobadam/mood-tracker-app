@@ -3,11 +3,35 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
 import { ExcitedMoodConfig } from "../mood-configs/ExcitedMoodConfig";
+import Lottie from "react-lottie";
+import pleasantLottie from "../assets/lottie/pleasant.json";
+import sadLottie from "../assets/lottie/sad.json";
+import excitedLottie from "../assets/lottie/excited.json";
 import { MoodConfig } from "../types/mood-config-types";
 import gsap from "gsap";
 
 type MoodProps = {
   newMood?: "PLEASANT" | "SAD" | "EXCITED";
+};
+const moodTexts = {
+  PLEASANT: {
+    title: "You're feeling pleasant",
+    description:
+      "Feeling on top of the world, are we? Must be all those endorphins doing their happy dance!",
+    color: "text-midnight-400",
+  },
+  SAD: {
+    title: "You're feeling sad",
+    description:
+      "Got the blues, huh? Remember, even clouds have silver linings. We’re here for you.",
+    color: "text-white",
+  },
+  EXCITED: {
+    title: "You're feeling excited",
+    description:
+      "Buckle up, buttercup! Someone's got an extra sparkle in their step today!",
+    color: "text-white",
+  },
 };
 
 const MoodAnimationContainer: React.FC<MoodProps> = ({
@@ -31,6 +55,26 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
   const [backgroundColor, setBackgroundColor] = useState(
     `linear-gradient(${moodConfigs["PLEASANT"].targetColors})`
   );
+
+  const lottieAnimation = useMemo(() => {
+    switch (newMood) {
+      case "SAD":
+        return sadLottie;
+      case "EXCITED":
+        return excitedLottie;
+      default:
+        return pleasantLottie;
+    }
+  }, [newMood]);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: lottieAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   useEffect(() => {
     const backgroundColor = moodConfigs[newMood].targetColors;
@@ -60,8 +104,33 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
       style={{
         backgroundImage: backgroundColor,
       }}
-      className="w-full h-full rounded-3xl overflow-hidden"
+      className="w-full h-full rounded-3xl overflow-hidden relative"
     >
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+        <p
+          className={`text-xs md:text-sm font-semibold tracking-[0.1em] text-center mb-0 ${
+            newMood === "PLEASANT" ? "text-midnight-300" : "text-white"
+          }`}
+        >
+          CURRENT MOOD
+        </p>
+
+        <p
+          className={`text-xl md:text-3xl lg:text-5xl font-extrabold tracking-[-0.015em] text-center mb-0 mt-4 ${moodTexts[newMood].color}`}
+        >
+          {moodTexts[newMood].title}
+        </p>
+        <p
+          className={`text-sm md:text-base lg:text-lg tracking-[-0.01em] text-center mb-0 ${moodTexts[newMood].color}`}
+        >
+          {moodTexts[newMood].description}
+        </p>
+
+        <div className="w-24 h-24 md:w-40 md:h-40 lg:w-56 lg:h-56">
+          <Lottie animationData={excitedLottie} options={defaultOptions} />
+        </div>
+      </div>
+
       <motion.svg
         width="100%"
         height="100%"
