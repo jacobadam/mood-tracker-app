@@ -3,7 +3,7 @@ import { MoodConfig } from "../types/mood-config-types";
 export const PleasantMoodConfig: MoodConfig = {
   id: "PLEASANT",
   backgroundGradientId: "paint0_linear_51_4595",
-  // targetColors: ["#A2E9FF", "#DDFDFF"],
+  targetColors: ["#A2E9FF", "#DDFDFF"],
   elements: [
     {
       id: "Sun",
