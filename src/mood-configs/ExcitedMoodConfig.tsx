@@ -14,7 +14,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       ry: 31.3647,
       fill: "url(#paint4_linear_51_4614)",
       initial: { y: 430, duration: 3 },
-      animate: { y: 0, scale: [1, 1.2, 1] },
+      animate: { y: 0, scale: [1, 1.6, 1] },
       exit: { y: 430, transition: { duration: 4.2 } },
       transition: {
         duration: 5,
@@ -113,10 +113,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       y1: 173.518,
       x2: 80.1974,
       y2: 232.706,
-      stops: [
-        { stopColor: "white" },
-        { offset: 1, stopColor: "white", stopOpacity: 0.01 },
-      ],
+      stops: [{ stopColor: "white" }, { offset: 1, stopColor: "white" }],
     },
     {
       id: "paint2_linear_51_4614",
@@ -134,7 +131,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       y2: 213.112,
       stops: [
         { stopColor: "#FED54C" },
-        { offset: 1, stopColor: "#FEDD3A", stopOpacity: 0.01 },
+        { offset: 1, stopColor: "#FEDD3A", stopOpacity: 1 },
       ],
     },
     {
@@ -151,10 +148,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       y1: 34.9058,
       x2: 355.088,
       y2: 109.27,
-      stops: [
-        { stopColor: "white" },
-        { offset: 1, stopColor: "white", stopOpacity: 0.01 },
-      ],
+      stops: [{ stopColor: "white" }, { offset: 1, stopColor: "white" }],
     },
   ],
 };
