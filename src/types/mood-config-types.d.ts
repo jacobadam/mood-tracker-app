@@ -31,6 +31,7 @@ export type MoodElement = {
 export type MoodConfig = {
   id: string;
   backgroundGradientId: string;
+  targetColors: any;
   elements: MoodElement[];
   linearGradients: LinearGradient[];
 };
