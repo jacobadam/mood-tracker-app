@@ -129,17 +129,17 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
         </p>
 
         <p
-          className={`text-xl md:text-3xl lg:text-5xl font-extrabold tracking-[-0.015em] text-center mb-0 mt-4 ${moodTexts[newMood].color}`}
+          className={`text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold tracking-[-0.015em] text-center mb-0 mt-4 ${moodTexts[newMood].color}`}
         >
           {moodTexts[newMood].title}
         </p>
         <p
-          className={`text-sm md:text-base lg:text-lg tracking-[-0.01em] text-center mb-0 ${moodTexts[newMood].color}`}
+          className={`text-sm md:text-base 2xl:text-lg tracking-[-0.01em] text-center mb-8 ${moodTexts[newMood].color}`}
         >
           {moodTexts[newMood].description}
         </p>
 
-        <div className="w-24 h-24 md:w-40 md:h-40 lg:w-56 lg:h-56">
+        <div className="w-24 h-24 md:w-40 md:h-40 2xl:w-56 2xl:h-56">
           <Lottie animationData={excitedLottie} options={defaultOptions} />
         </div>
       </div>
@@ -162,7 +162,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
                 if (element.type === "ellipse") {
                   return (
                     <motion.ellipse
-                      key={element.id}
+                      key={`${newMood}-${element.id}-${Math.random()}`}
                       cx={element.cx}
                       cy={element.cy}
                       rx={element.rx}
@@ -177,7 +177,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
                 } else {
                   return (
                     <motion.path
-                      key={element.id}
+                      key={`${newMood}-${element.id}-${Math.random()}`}
                       id={element.id}
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -210,7 +210,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
                   key={stop.id}
                   offset={stop.offset}
                   stopColor={stop.stopColor}
-                  stopOpacity={stop.opacity}
+                  stopOpacity={stop.stopOpacity}
                 />
               ))}
             </linearGradient>
