@@ -1,5 +1,5 @@
 export type LinearGradientStop = {
-  color: string;
+  stopColor: string;
   offset?: number;
   stopOpacity?: number;
 };
