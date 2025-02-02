@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import MoodAnimationContainer from "./MoodAnimationContainer";
 import MoodLogContainer from "./MoodLogContainer";
 import LogMoodButton from "./LogMoodButton";
 
 const MoodTrackerApp: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const moodParam = searchParams.get("mood") as
+    | "PLEASANT"
+    | "SAD"
+    | "EXCITED"
+    | null;
+  const [selectedMood, setSelectedMood] = React.useState<
+    "PLEASANT" | "SAD" | "EXCITED"
+  >(moodParam || "PLEASANT");
+
+  useEffect(() => {
+    if (moodParam && ["PLEASANT", "SAD", "EXCITED"].includes(moodParam)) {
+      setSelectedMood(moodParam);
+    }
+  }, [moodParam]);
+
+  const handleMoodSelect = (mood: "PLEASANT" | "SAD" | "EXCITED") => {
+    setSelectedMood(mood);
+    setSearchParams({ mood });
+  };
+
   return (
-    <div className="relative flex flex-col lg:flex-row h-screen items-center justify-center p-12 box-border lg:gap-2">
-      <div className="flex flex-1 h-full max-w-full">
-        <MoodAnimationContainer />
+    <div className="relative flex flex-col lg:flex-row h-screen items-center justify-center p-12 box-border lg:gap-8">
+      <div className="flex items-center justify-center w-[320px] h-[320px] md:w-[620px] md:h-[580px] 2xl:w-[912px] 2xl:h-[850px]">
+        <MoodAnimationContainer newMood={selectedMood} />
       </div>
 
-      <div className="relative flex max-w-full lg:max-w-[30%] h-full flex-col items-center xl:pr-32">
-        <MoodLogContainer />
-        <LogMoodButton />
+      <div className="relative flex max-w-full lg:max-w-[30%] h-full flex-col items-center">
+        <MoodLogContainer onMoodSelect={handleMoodSelect} />
+        <LogMoodButton onMoodSelect={handleMoodSelect} />
       </div>
     </div>
   );
