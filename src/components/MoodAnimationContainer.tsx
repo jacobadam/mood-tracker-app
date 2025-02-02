@@ -58,10 +58,9 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
     <div
       ref={backgroundRef}
       style={{
-        width: "100%",
-        height: "100%",
         backgroundImage: backgroundColor,
       }}
+      className="w-full h-full rounded-3xl overflow-hidden"
     >
       <motion.svg
         width="100%"
