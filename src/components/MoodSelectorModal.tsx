@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import CloseIcon from "../assets/close.svg";
 import Lottie from "react-lottie";
 import pleasantMood from "../assets/lottie/pleasant.json";
 import sadMood from "../assets/lottie/sad.json";
 import excitedMood from "../assets/lottie/excited.json";
-import { addMood } from "../api/moodTrackerApi";
+import { useAddMood } from "../hooks/useAddMood";
+
 interface ModalProps {
   onClose: () => void;
   onMoodSelect: (mood: "PLEASANT" | "EXCITED" | "SAD") => void;
@@ -17,35 +18,19 @@ interface MoodButton {
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose, onMoodSelect }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const { loading, error, postMood } = useAddMood(apiKey);
+
   const moodButtons: MoodButton[] = [
     { animation: pleasantMood, label: "Pleasant", type: "PLEASANT" },
     { animation: excitedMood, label: "Excited", type: "EXCITED" },
     { animation: sadMood, label: "Sad", type: "SAD" },
   ];
 
-  const apiKey = process.env.REACT_APP_API_KEY;
-
-  if (!apiKey) {
-    setError("API key is missing.");
-    return <div>{error}</div>;
-  }
-
-  const handleMoodSelect = async (mood: "PLEASANT" | "EXCITED" | "SAD") => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      await addMood(mood, apiKey);
-      console.log(`Mood "${mood}" successfully posted.`);
-      onMoodSelect(mood);
-      onClose();
-    } catch (error) {
-      setError(`Failed to post mood: ${(error as Error).message}`);
-    } finally {
-      setLoading(false);
-    }
+  const handleMoodSelect = (mood: "PLEASANT" | "EXCITED" | "SAD") => {
+    postMood(mood);
+    onMoodSelect(mood);
+    onClose();
   };
 
   return (
