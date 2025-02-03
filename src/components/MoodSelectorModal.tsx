@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import CloseIcon from "../assets/close.svg";
 import Lottie from "react-lottie";
 import pleasantMood from "../assets/lottie/pleasant.json";
 import sadMood from "../assets/lottie/sad.json";
 import excitedMood from "../assets/lottie/excited.json";
+import { addMood } from "../api/moodTrackerApi";
 interface ModalProps {
   onClose: () => void;
   onMoodSelect: (mood: "PLEASANT" | "EXCITED" | "SAD") => void;
@@ -16,14 +17,35 @@ interface MoodButton {
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose, onMoodSelect }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const moodButtons: MoodButton[] = [
     { animation: pleasantMood, label: "Pleasant", type: "PLEASANT" },
     { animation: excitedMood, label: "Excited", type: "EXCITED" },
     { animation: sadMood, label: "Sad", type: "SAD" },
   ];
 
-  const handleMoodClick = (mood: "PLEASANT" | "EXCITED" | "SAD") => {
-    onMoodSelect(mood);
+  const apiKey = process.env.REACT_APP_API_KEY;
+
+  if (!apiKey) {
+    setError("API key is missing.");
+    return <div>{error}</div>;
+  }
+
+  const handleMoodSelect = async (mood: "PLEASANT" | "EXCITED" | "SAD") => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await addMood(mood, apiKey);
+      console.log(`Mood "${mood}" successfully posted.`);
+      onMoodSelect(mood);
+      onClose();
+    } catch (error) {
+      setError(`Failed to post mood: ${(error as Error).message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,7 +68,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onMoodSelect }) => {
             <button
               key={index}
               className="flex flex-col items-center justify-center w-20 h-20 sm:w-40 sm:h-40 lg:w-[252px] lg:h-[242px] bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl"
-              onClick={() => handleMoodClick(mood.type)}
+              onClick={() => handleMoodSelect(mood.type)}
             >
               <div className="w-8 h-8 sm:w-16 sm:h-16">
                 <Lottie
@@ -62,6 +84,8 @@ const Modal: React.FC<ModalProps> = ({ onClose, onMoodSelect }) => {
             </button>
           ))}
         </div>
+        {loading && <div>Loading...</div>}
+        {error && <div className="text-red-500">{error}</div>}
       </div>
     </div>
   );
