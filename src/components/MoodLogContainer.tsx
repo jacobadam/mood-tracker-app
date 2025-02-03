@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MoodCard from "./MoodCard";
-import { fetchMoods } from "../api/moodTrackerApi";
-import { connectWebSocket, disconnectWebSocket } from "../utils/websocket";
 import pleasantLottie from "../assets/lottie/pleasant.json";
 import sadLottie from "../assets/lottie/sad.json";
 import excitedLottie from "../assets/lottie/excited.json";
@@ -11,6 +9,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useMoods } from "../hooks/useMoods";
 
 type MoodType = "PLEASANT" | "SAD" | "EXCITED";
 
@@ -26,44 +25,20 @@ const moodMap: Record<MoodType, any> = {
   EXCITED: excitedLottie,
 };
 
-const MoodLogContainer: React.FC = () => {
-  const [moods, setMoods] = useState<Mood[]>([]);
+const MoodLogContainer: React.FC<{
+  selectedMood: "PLEASANT" | "SAD" | "EXCITED";
+  onMoodSelect: (mood: "PLEASANT" | "SAD" | "EXCITED") => void;
+}> = ({ onMoodSelect }) => {
+  const { moods, loading, error } = useMoods();
+  const [selectedMoodId, setSelectedMoodId] = useState<number | null>(null);
 
-  useEffect(() => {
-    const loadMoods = async () => {
-      try {
-        const apiKey = process.env.REACT_APP_API_KEY;
-        if (!apiKey) {
-          console.error("API key is missing.");
-          return;
-        }
+  const handleMoodCardSelect = (mood: Mood) => {
+    setSelectedMoodId(mood.id);
+    onMoodSelect(mood.type);
+  };
 
-        const fetchedMoods: Mood[] = await fetchMoods(apiKey);
-        setMoods(fetchedMoods);
-      } catch (error) {
-        console.error("Failed to fetch moods:", (error as Error).message);
-      }
-    };
-
-    loadMoods();
-
-    const handleNewMood = (newMood: Mood) => {
-      setMoods((prevMoods) => [
-        {
-          ...newMood,
-          lottie: moodMap[newMood.type],
-          date: new Date(newMood.createdAt).toLocaleDateString(),
-        },
-        ...prevMoods,
-      ]);
-    };
-
-    connectWebSocket(handleNewMood);
-
-    return () => {
-      disconnectWebSocket();
-    };
-  }, []);
+  if (loading) return <div>Loading moods...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="fade-mask flex flex-col gap-2 p-4 overflow-y-auto w-full no-scrollbar items-center">
@@ -81,47 +56,34 @@ const MoodLogContainer: React.FC = () => {
                 lottie={moodMap[mood.type]}
                 mood={mood.type}
                 date={mood.createdAt}
+                isSelected={selectedMoodId === mood.id}
+                onMoodSelect={() => handleMoodCardSelect(mood)}
               />
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
 
-      <div className="w-full p-8">
+      <div className="w-full p-0 lg:hidden">
         <Swiper
           modules={[Navigation, Pagination]}
-          slidesPerView="auto"
-          navigation={{
-            nextEl: ".portfolio-button-next",
-            prevEl: ".portfolio-button-prev",
+          pagination={{
+            dynamicBullets: true,
+            clickable: true,
+            el: ".custom-pagination",
           }}
           loop={true}
           breakpoints={{
-            320: {
-              slidesPerView: 2,
-              spaceBetween: 2,
-            },
-            480: {
-              slidesPerView: 2,
-              spaceBetween: 2,
-            },
-            640: {
-              slidesPerView: 3,
-              spaceBetween: 2,
-            },
-            748: {
-              slidesPerView: 4,
-              spaceBetween: 2,
-            },
-            900: {
-              slidesPerView: 5,
-              spaceBetween: 2,
-            },
+            320: { slidesPerView: 2, spaceBetween: 8 },
+            480: { slidesPerView: 3, spaceBetween: 8 },
+            640: { slidesPerView: 4, spaceBetween: 2 },
+            748: { slidesPerView: 5, spaceBetween: 8 },
+            900: { slidesPerView: 6, spaceBetween: 8 },
           }}
         >
           {moods.map((mood, index) => (
             <SwiperSlide
-              key={index}
+              key={mood.id || index}
               className="group"
               aria-label={`Slide ${index + 1}`}
             >
@@ -129,11 +91,14 @@ const MoodLogContainer: React.FC = () => {
                 lottie={moodMap[mood.type]}
                 mood={mood.type}
                 date={mood.createdAt}
+                isSelected={selectedMoodId === mood.id}
+                onMoodSelect={() => handleMoodCardSelect(mood)}
               />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+      <div className="custom-pagination"></div>
     </div>
   );
 };
