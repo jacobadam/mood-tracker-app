@@ -100,6 +100,14 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
         ease: "power2.inOut",
       });
 
+      if (newMood === "EXCITED") {
+        gsap.to(".lottie-container", {
+          rotation: 360,
+          duration: 2,
+          ease: "power2.inOut",
+        });
+      }
+
       setExit(true);
     }
   }, [newMood]);
@@ -139,7 +147,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
           {moodTexts[newMood].description}
         </p>
 
-        <div className="w-24 h-24 md:w-40 md:h-40 2xl:w-56 2xl:h-56">
+        <div className="lottie-container w-24 h-24 md:w-40 md:h-40 2xl:w-56 2xl:h-56">
           <Lottie animationData={excitedLottie} options={defaultOptions} />
         </div>
       </div>
