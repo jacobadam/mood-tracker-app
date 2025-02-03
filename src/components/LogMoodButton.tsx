@@ -4,7 +4,11 @@ import { addMood } from "../api/moodTrackerApi";
 
 type MoodType = "PLEASANT" | "SAD" | "EXCITED";
 
-const LogMoodButton: React.FC = () => {
+interface LogMoodButtonProps {
+  onMoodSelect: (mood: "PLEASANT" | "SAD" | "EXCITED") => void;
+}
+
+const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -42,7 +46,10 @@ const LogMoodButton: React.FC = () => {
       {isModalOpen && (
         <MoodSelectorModal
           onClose={closeModal}
-          onMoodSelect={handleMoodSelect}
+          onMoodSelect={(mood: "PLEASANT" | "SAD" | "EXCITED") => {
+            onMoodSelect(mood);
+            closeModal();
+          }}
         />
       )}
     </>
