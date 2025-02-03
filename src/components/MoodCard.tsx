@@ -36,6 +36,16 @@ const MoodCard: React.FC<MoodCardProps> = ({
 
   const finalFormattedDate = `${formattedDate} at ${formattedTime}`;
 
+  const finalFormattedDateMobile = new Date(date)
+    .toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .replace(",", "");
+
   const defaultOptions = {
     loop: false,
     autoplay: false,
@@ -75,13 +85,15 @@ const MoodCard: React.FC<MoodCardProps> = ({
 
       <button
         onClick={handleClick}
-        className="flex flex-col items-center justify-center w-40 h-40 bg-white p-6 rounded-3xl hover:bg-lavender-200 border-none text-2xl lg:hidden"
+        className="flex flex-col items-center justify-center w-30 h-30 bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl lg:hidden"
       >
-        <div className="w-8 h-8 ">
+        <div className="w-8 h-8">
           <Lottie options={defaultOptions} isPaused />
         </div>
         <span className="mt-2 text-sm font-bold h-4">{formattedMood}</span>
-        <span className="mt-2 text-sm text-gray-500">{finalFormattedDate}</span>
+        <span className="mt-2 text-sm text-gray-500">
+          {finalFormattedDateMobile}
+        </span>
       </button>
     </>
   );
