@@ -23,9 +23,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onMoodSelect }) => {
   ];
 
   const handleMoodClick = (mood: "PLEASANT" | "EXCITED" | "SAD") => {
-    if (onMoodSelect) {
-      onMoodSelect(mood);
-    }
+    onMoodSelect(mood);
   };
 
   return (
