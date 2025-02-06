@@ -25,7 +25,7 @@ const MoodTrackerApp: React.FC = () => {
   return (
     <div className="relative flex flex-col lg:flex-row h-screen items-center justify-center p-12 box-border lg:gap-8">
       <div className="flex items-center justify-center w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[609px] md:h-[570px] 2xl:w-[912px] 2xl:h-[850px]">
-        <MoodAnimationContainer newMood={selectedMood} />
+        <MoodAnimationContainer mood={selectedMood} />
       </div>
 
       <div className="relative flex max-w-full lg:max-w-[30%] h-full flex-col items-center">

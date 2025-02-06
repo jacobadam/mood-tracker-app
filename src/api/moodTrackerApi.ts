@@ -18,7 +18,7 @@ export async function addMood(type: MoodType, apiKey: string): Promise<Mood> {
     const latestId = moods.length ? Math.max(...moods.map((m) => m.id)) : 0;
     const newId = latestId + 1;
 
-    const newMood: Mood = {
+    const mood: Mood = {
       createdAt: new Date().toISOString(),
       id: newId,
       type,
@@ -30,7 +30,7 @@ export async function addMood(type: MoodType, apiKey: string): Promise<Mood> {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify(newMood),
+      body: JSON.stringify(mood),
     });
 
     if (!response.ok) {

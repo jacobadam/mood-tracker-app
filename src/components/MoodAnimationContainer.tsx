@@ -13,7 +13,7 @@ import { MoodType } from "../types/mood-types";
 import { LottieData } from "../types/lottie-types";
 
 type MoodProps = {
-  newMood?: MoodType;
+  mood?: MoodType;
 };
 
 const moodTexts = {
@@ -63,39 +63,39 @@ const lottieMap: Record<MoodType, LottieData> = {
 };
 
 const MoodAnimationContainer: React.FC<MoodProps> = ({
-  newMood = MoodType.PLEASANT,
+  mood = MoodType.PLEASANT,
 }) => {
   const [currentConfig, setCurrentConfig] = useState<MoodConfig>(
-    moodConfigs[newMood]
+    moodConfigs[mood]
   );
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const [backgroundColor, setBackgroundColor] = useState(
-    `linear-gradient(${moodConfigs[newMood].targetColors})`
+    `linear-gradient(${moodConfigs[mood].targetColors})`
   );
 
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: lottieMap[newMood],
+    animationData: lottieMap[mood],
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
 
   useEffect(() => {
-    const backgroundColor = moodConfigs[newMood].targetColors;
+    const backgroundColor = moodConfigs[mood].targetColors;
 
     setBackgroundColor(backgroundColor);
-    if (newMood && newMood !== currentConfig.id) {
+    if (mood && mood !== currentConfig.id) {
       gsap.to(backgroundRef.current, {
         duration: 5,
         backgroundImage: `linear-gradient(${backgroundColor})`,
         ease: "power2.inOut",
       });
 
-      if (newMood === MoodType.EXCITED) {
+      if (mood === MoodType.EXCITED) {
         gsap.to(".lottie-container", {
           rotation: 360,
           duration: 2,
@@ -105,11 +105,11 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
 
       setExit(true);
     }
-  }, [newMood]);
+  }, [mood]);
 
   const handleExitComplete = () => {
-    if (newMood && moodConfigs[newMood]) {
-      setCurrentConfig(() => moodConfigs[newMood]);
+    if (mood && moodConfigs[mood]) {
+      setCurrentConfig(() => moodConfigs[mood]);
     }
     setExit(false);
   };
@@ -125,21 +125,21 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
         <p
           className={`text-xs md:text-sm font-semibold tracking-[0.1em] text-center mb-0 ${
-            newMood === MoodType.PLEASANT ? "text-midnight-300" : "text-white"
+            mood === MoodType.PLEASANT ? "text-midnight-300" : "text-white"
           }`}
         >
           CURRENT MOOD
         </p>
 
         <p
-          className={`text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold tracking-[-0.015em] text-center mb-0 mt-4 ${moodTexts[newMood].color}`}
+          className={`text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold tracking-[-0.015em] text-center mb-0 mt-4 ${moodTexts[mood].color}`}
         >
-          {moodTexts[newMood].title}
+          {moodTexts[mood].title}
         </p>
         <p
-          className={`text-sm md:text-base 2xl:text-lg tracking-[-0.01em] text-center mb-8 ${moodTexts[newMood].color}`}
+          className={`text-sm md:text-base 2xl:text-lg tracking-[-0.01em] text-center mb-8 ${moodTexts[mood].color}`}
         >
-          {moodTexts[newMood].description}
+          {moodTexts[mood].description}
         </p>
 
         <div className="lottie-container w-24 h-24 md:w-40 md:h-40 2xl:w-56 2xl:h-56">
