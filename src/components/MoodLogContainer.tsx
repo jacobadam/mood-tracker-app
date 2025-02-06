@@ -10,24 +10,18 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useMoods } from "../hooks/useMoods";
+import { MoodType, Mood } from "../types/mood-types";
+import { LottieData } from "../types/lottie-types";
 
-type MoodType = "PLEASANT" | "SAD" | "EXCITED";
-
-interface Mood {
-  id: number;
-  type: MoodType;
-  createdAt: string;
-}
-
-const moodMap: Record<MoodType, any> = {
-  PLEASANT: pleasantLottie,
-  SAD: sadLottie,
-  EXCITED: excitedLottie,
+const moodMap: Record<MoodType, LottieData> = {
+  [MoodType.PLEASANT]: pleasantLottie,
+  [MoodType.SAD]: sadLottie,
+  [MoodType.EXCITED]: excitedLottie,
 };
 
 const MoodLogContainer: React.FC<{
-  selectedMood: "PLEASANT" | "SAD" | "EXCITED";
-  onMoodSelect: (mood: "PLEASANT" | "SAD" | "EXCITED") => void;
+  selectedMood: MoodType;
+  onMoodSelect: (mood: MoodType) => void;
 }> = ({ onMoodSelect }) => {
   const { moods, loading, error } = useMoods();
   const [selectedMoodId, setSelectedMoodId] = useState<number | null>(null);

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Lottie from "react-lottie";
+import { MoodType } from "../types/mood-types";
+import { LottieData } from "../types/lottie-types";
 
 interface MoodCardProps {
-  lottie: any;
-  mood: "PLEASANT" | "SAD" | "EXCITED";
+  lottie: LottieData;
+  mood: MoodType;
   date: string;
   isSelected: boolean;
-  onMoodSelect: (mood: "PLEASANT" | "SAD" | "EXCITED") => void;
+  onMoodSelect: (mood: MoodType) => void;
 }
-
 const MoodCard: React.FC<MoodCardProps> = ({
   lottie,
   mood,
@@ -55,14 +56,10 @@ const MoodCard: React.FC<MoodCardProps> = ({
     },
   };
 
-  const handleClick = () => {
-    onMoodSelect(mood);
-  };
-
   return (
     <>
       <button
-        onClick={handleClick}
+        onClick={() => onMoodSelect(mood)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={`hidden lg:flex items-center w-full min-w-80 justify-center px-6 h-20 rounded-3xl bg-white border-2 focus:outline-none focus:ring-2 transition-transform hover:h-32 hover:bg-lavender-200 lg:block ${
@@ -84,7 +81,7 @@ const MoodCard: React.FC<MoodCardProps> = ({
       </button>
 
       <button
-        onClick={handleClick}
+        onClick={() => onMoodSelect(mood)}
         className="flex flex-col items-center justify-center w-30 h-30 bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl lg:hidden"
       >
         <div className="w-8 h-8">

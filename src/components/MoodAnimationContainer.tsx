@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
 import { ExcitedMoodConfig } from "../mood-configs/ExcitedMoodConfig";
@@ -8,13 +9,15 @@ import pleasantLottie from "../assets/lottie/pleasant.json";
 import sadLottie from "../assets/lottie/sad.json";
 import excitedLottie from "../assets/lottie/excited.json";
 import { MoodConfig } from "../types/mood-config-types";
-import gsap from "gsap";
+import { MoodType } from "../types/mood-types";
+import { LottieData } from "../types/lottie-types";
 
 type MoodProps = {
-  newMood?: "PLEASANT" | "SAD" | "EXCITED";
+  newMood?: MoodType;
 };
+
 const moodTexts = {
-  PLEASANT: {
+  [MoodType.PLEASANT]: {
     title: "You're feeling pleasant",
     description: (
       <>
@@ -25,7 +28,7 @@ const moodTexts = {
     ),
     color: "text-midnight-400",
   },
-  SAD: {
+  [MoodType.SAD]: {
     title: "You're feeling sad",
     description: (
       <>
@@ -35,7 +38,7 @@ const moodTexts = {
     ),
     color: "text-white",
   },
-  EXCITED: {
+  [MoodType.EXCITED]: {
     title: "You're feeling excited",
     description: (
       <>
@@ -47,18 +50,21 @@ const moodTexts = {
   },
 };
 
-const MoodAnimationContainer: React.FC<MoodProps> = ({
-  newMood = "PLEASANT",
-}) => {
-  const moodConfigs: Record<string, MoodConfig> = useMemo(
-    () => ({
-      PLEASANT: PleasantMoodConfig,
-      SAD: SadMoodConfig,
-      EXCITED: ExcitedMoodConfig,
-    }),
-    []
-  );
+const moodConfigs: Record<MoodType, MoodConfig> = {
+  [MoodType.PLEASANT]: PleasantMoodConfig,
+  [MoodType.SAD]: SadMoodConfig,
+  [MoodType.EXCITED]: ExcitedMoodConfig,
+};
 
+const lottieMap: Record<MoodType, LottieData> = {
+  [MoodType.PLEASANT]: pleasantLottie,
+  [MoodType.SAD]: sadLottie,
+  [MoodType.EXCITED]: excitedLottie,
+};
+
+const MoodAnimationContainer: React.FC<MoodProps> = ({
+  newMood = MoodType.PLEASANT,
+}) => {
   const [currentConfig, setCurrentConfig] = useState<MoodConfig>(
     moodConfigs[newMood]
   );
@@ -69,21 +75,10 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
     `linear-gradient(${moodConfigs[newMood].targetColors})`
   );
 
-  const lottieAnimation = useMemo(() => {
-    switch (newMood) {
-      case "SAD":
-        return sadLottie;
-      case "EXCITED":
-        return excitedLottie;
-      default:
-        return pleasantLottie;
-    }
-  }, [newMood]);
-
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: lottieAnimation,
+    animationData: lottieMap[newMood],
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -100,7 +95,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
         ease: "power2.inOut",
       });
 
-      if (newMood === "EXCITED") {
+      if (newMood === MoodType.EXCITED) {
         gsap.to(".lottie-container", {
           rotation: 360,
           duration: 2,
@@ -130,7 +125,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
         <p
           className={`text-xs md:text-sm font-semibold tracking-[0.1em] text-center mb-0 ${
-            newMood === "PLEASANT" ? "text-midnight-300" : "text-white"
+            newMood === MoodType.PLEASANT ? "text-midnight-300" : "text-white"
           }`}
         >
           CURRENT MOOD

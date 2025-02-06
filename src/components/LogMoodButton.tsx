@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import MoodSelectorModal from "./MoodSelectorModal";
+import { MoodType } from "../types/mood-types";
 
 interface LogMoodButtonProps {
-  onMoodSelect: (mood: "PLEASANT" | "SAD" | "EXCITED") => void;
+  onMoodSelect: (mood: MoodType) => void;
 }
+
 const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -22,7 +24,7 @@ const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
       {isModalOpen && (
         <MoodSelectorModal
           onClose={closeModal}
-          onMoodSelect={(mood: "PLEASANT" | "SAD" | "EXCITED") => {
+          onMoodSelect={(mood: MoodType) => {
             onMoodSelect(mood);
             closeModal();
           }}

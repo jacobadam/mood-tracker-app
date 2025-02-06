@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
-
-type MoodType = "PLEASANT" | "SAD" | "EXCITED";
-
-interface Mood {
-  id: number;
-  type: MoodType;
-  createdAt: string;
-}
+import { Mood } from "../types/mood-types";
 
 export function useMoods() {
   const [moods, setMoods] = useState<Mood[]>([]);
