@@ -1,27 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import MoodAnimationContainer from "./MoodAnimationContainer";
 import MoodLogContainer from "./MoodLogContainer";
 import LogMoodButton from "./LogMoodButton";
+import { MoodType } from "../types/mood-types";
 
 const MoodTrackerApp: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const moodParam = searchParams.get("mood") as
-    | "PLEASANT"
-    | "SAD"
-    | "EXCITED"
-    | null;
-  const [selectedMood, setSelectedMood] = React.useState<
-    "PLEASANT" | "SAD" | "EXCITED"
-  >(moodParam || "PLEASANT");
+  const moodParam = searchParams.get("mood");
 
-  useEffect(() => {
-    if (moodParam && ["PLEASANT", "SAD", "EXCITED"].includes(moodParam)) {
-      setSelectedMood(moodParam);
-    }
-  }, [moodParam]);
+  const initialMood: MoodType = Object.values(MoodType).includes(
+    moodParam as MoodType
+  )
+    ? (moodParam as MoodType)
+    : MoodType.PLEASANT;
 
-  const handleMoodSelect = (mood: "PLEASANT" | "SAD" | "EXCITED") => {
+  const [selectedMood, setSelectedMood] = useState<MoodType>(initialMood);
+
+  const handleMoodSelect = (mood: MoodType) => {
     setSelectedMood(mood);
     setSearchParams({ mood });
   };
