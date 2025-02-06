@@ -1,12 +1,7 @@
 import { io, Socket } from "socket.io-client";
+import { Mood } from "../types/mood-types";
 
 let socket: Socket | null = null;
-
-type Mood = {
-  id: number;
-  type: "SAD" | "EXCITED" | "PLEASANT";
-  createdAt: string;
-};
 
 export const connectWebSocket = (onNewMood?: (mood: Mood) => void): void => {
   if (!socket) {
