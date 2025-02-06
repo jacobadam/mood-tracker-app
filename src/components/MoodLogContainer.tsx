@@ -98,7 +98,7 @@ const MoodLogContainer: React.FC<{
           ))}
         </Swiper>
       </div>
-      <div className="custom-pagination"></div>
+      <div className="lg:custom-pagination"></div>
     </div>
   );
 };
