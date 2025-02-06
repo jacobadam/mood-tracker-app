@@ -1,0 +1,54 @@
+{
+  "moods": [
+    {
+      "id": "1",
+      "createdAt": "2025-02-05T22:25:00.835Z",
+      "type": "SAD"
+    },
+    {
+      "id": "2",
+      "createdAt": "2025-02-05T22:25:08.897Z",
+      "type": "EXCITED"
+    },
+    {
+      "id": "3",
+      "createdAt": "2025-02-05T22:25:53.573Z",
+      "type": "PLEASANT"
+    },
+    {
+      "id": "4",
+      "createdAt": "2025-02-05T22:38:07.618Z",
+      "type": "SAD"
+    },
+    {
+      "id": "5",
+      "createdAt": "2025-02-05T22:38:31.047Z",
+      "type": "SAD"
+    },
+    {
+      "id": "6",
+      "createdAt": "2025-02-05T22:39:26.753Z",
+      "type": "PLEASANT"
+    },
+    {
+      "id": "7",
+      "createdAt": "2025-02-05T22:39:45.727Z",
+      "type": "PLEASANT"
+    },
+    {
+      "id": "8",
+      "createdAt": "2025-02-05T22:50:38.458Z",
+      "type": "EXCITED"
+    },
+    {
+      "id": "9",
+      "createdAt": "2025-02-06T02:54:54.845Z",
+      "type": "SAD"
+    },
+    {
+      "id": 10,
+      "createdAt": "2025-02-06T06:23:19.753Z",
+      "type": "SAD"
+    }
+  ]
+}
