@@ -60,13 +60,13 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
   );
 
   const [currentConfig, setCurrentConfig] = useState<MoodConfig>(
-    moodConfigs["PLEASANT"]
+    moodConfigs[newMood]
   );
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const [backgroundColor, setBackgroundColor] = useState(
-    `linear-gradient(${moodConfigs["PLEASANT"].targetColors})`
+    `linear-gradient(${moodConfigs[newMood].targetColors})`
   );
 
   const lottieAnimation = useMemo(() => {
@@ -170,7 +170,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
                 if (element.type === "ellipse") {
                   return (
                     <motion.ellipse
-                      key={`${newMood}-${element.id}-${Math.random()}`}
+                      key={currentConfig.id + element.id}
                       cx={element.cx}
                       cy={element.cy}
                       rx={element.rx}
@@ -185,7 +185,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
                 } else {
                   return (
                     <motion.path
-                      key={`${newMood}-${element.id}-${Math.random()}`}
+                      key={currentConfig.id + element.id}
                       id={element.id}
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -201,28 +201,29 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
               })}
           </AnimatePresence>
         </g>
-
         <defs>
-          {Object.values(currentConfig.linearGradients).map((gradient: any) => (
-            <linearGradient
-              key={gradient.id}
-              id={gradient.id}
-              x1={gradient.x1}
-              y1={gradient.y1}
-              x2={gradient.x2}
-              y2={gradient.y2}
-              gradientUnits="userSpaceOnUse"
-            >
-              {gradient.stops.map((stop: any, index: number) => (
-                <stop
-                  key={stop.id}
-                  offset={stop.offset}
-                  stopColor={stop.stopColor}
-                  stopOpacity={stop.stopOpacity}
-                />
-              ))}
-            </linearGradient>
-          ))}
+          {Object.values(currentConfig.linearGradients).map(
+            (gradient: any, index: number) => (
+              <linearGradient
+                key={index}
+                id={gradient.id}
+                x1={gradient.x1}
+                y1={gradient.y1}
+                x2={gradient.x2}
+                y2={gradient.y2}
+                gradientUnits="userSpaceOnUse"
+              >
+                {gradient.stops.map((stop: any, index: number) => (
+                  <stop
+                    key={index}
+                    offset={stop.offset}
+                    stopColor={stop.stopColor}
+                    stopOpacity={stop.stopOpacity}
+                  />
+                ))}
+              </linearGradient>
+            )
+          )}
           <clipPath id="clip0_51_4607">
             <rect width={460} height={430} rx={40} fill="white" />
           </clipPath>
