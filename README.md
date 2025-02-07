@@ -36,6 +36,10 @@ or
 
 `yarn install`
 
+If you encounter peer dependency issues, try:
+
+`npm install --legacy-peer-deps`
+
 ### Running the Application with Docker
 
 ##### Start the services using Docker Compose:
