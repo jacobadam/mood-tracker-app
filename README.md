@@ -54,7 +54,7 @@ After running the services, the front-end application will be available at http:
 
 ### Running the Application Locally (Without Docker)
 
-As I am currently unable to connect to Metalab's backend, I have set up my own mock database. The fetch and post api requests still work as if it were connected to the Metalab backend. This setup will simulate the backend using a local file (db.json).
+Since I am currently unable to connect to Metalab's backend, I have set up a mock database to simulate its functionality. The fetch and post API requests work as if they were connected to the Metalab backend. This setup uses a local db.json file to act as the backend. Initially, db.json is empty, but it can be updated by posting data using the Log Mood button.
 
 #### Start the app and the JSON server:
 
