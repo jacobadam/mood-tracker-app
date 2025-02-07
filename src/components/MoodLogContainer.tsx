@@ -67,12 +67,10 @@ const MoodLogContainer: React.FC<{
             el: ".custom-pagination",
           }}
           loop={true}
+          centeredSlides={true}
           breakpoints={{
             320: { slidesPerView: 2, spaceBetween: 8 },
             480: { slidesPerView: 3, spaceBetween: 8 },
-            640: { slidesPerView: 4, spaceBetween: 2 },
-            748: { slidesPerView: 5, spaceBetween: 8 },
-            900: { slidesPerView: 6, spaceBetween: 8 },
           }}
         >
           {moods.map((mood, index) => (
@@ -92,7 +90,7 @@ const MoodLogContainer: React.FC<{
           ))}
         </Swiper>
       </div>
-      <div className="lg:custom-pagination"></div>
+      <div className="custom-pagination lg:hidden"></div>
     </div>
   );
 };
