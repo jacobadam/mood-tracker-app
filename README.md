@@ -36,9 +36,9 @@ or
 
 `yarn install`
 
-If you encounter peer dependency issues, try:
+If you encounter peer dependency issues, you can add:
 
-`npm install --legacy-peer-deps`
+`--legacy-peer-deps` after the install command.
 
 ### Running the Application with Docker
 
