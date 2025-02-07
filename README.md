@@ -64,7 +64,7 @@ Since I am currently unable to connect to Metalab's backend, I have set up a moc
 
 In the project directory, run:
 
-npm run start
+`npm run start`
 
 This will:
 
