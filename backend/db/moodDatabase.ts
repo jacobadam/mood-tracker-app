@@ -15,3 +15,15 @@ export const getMoods = (): any[] => {
     return [];
   }
 };
+
+export const addMood = (type: string): void => {
+  try {
+    const sql = `
+    INSERT INTO moods (createdAt, type)
+    VALUES (?, ?)
+  `;
+    db.prepare(sql).run(new Date().toISOString(), type);
+  } catch (error) {
+    console.log("error adding mood:", error);
+  }
+};
