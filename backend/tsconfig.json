@@ -10,8 +10,12 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*"]
+    }
   },
-  "include": ["db/**/*.ts"],
+  "include": ["server.ts", "db/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
