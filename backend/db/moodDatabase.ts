@@ -27,3 +27,15 @@ export const addMood = (type: string): void => {
     console.log("error adding mood:", error);
   }
 };
+
+export const deleteMood = (id: number): void => {
+  try {
+    const sql = `
+    DELETE FROM moods 
+    WHERE id = ?
+  `;
+    db.prepare(sql).run(id);
+  } catch (error) {
+    console.log("error deleting mood:", error);
+  }
+};
