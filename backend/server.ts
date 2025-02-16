@@ -24,6 +24,16 @@ app.get("/moods", (req, res) => {
   }
 });
 
+app.post("/mood", (req, res) => {
+  try {
+    const { type } = req.body;
+    addMood(type);
+    res.status(201).json({ message: "Mood added successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add mood" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
 });
