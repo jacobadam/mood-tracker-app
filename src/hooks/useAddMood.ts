@@ -1,25 +1,22 @@
 import { useState } from "react";
 import { addMood } from "../api/moodTrackerApi";
-import { MoodType } from "../types/mood-types";
+import { Mood, MoodType } from "../types/mood-types";
 
-export const useAddMood = (apiKey: string | undefined) => {
+export const useAddMood = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const postMood = async (mood: MoodType) => {
-    if (!apiKey) {
-      setError("API key is missing.");
-      return;
-    }
-
+  const postMood = async (mood: MoodType): Promise<Mood | null> => {
     setLoading(true);
     setError(null);
 
     try {
-      await addMood(mood, apiKey);
+      const newMood = await addMood(mood);
       console.log(`Mood "${mood}" successfully posted.`);
+      return newMood;
     } catch (error) {
       setError(`Failed to post mood: ${(error as Error).message}`);
+      return null;
     } finally {
       setLoading(false);
     }
