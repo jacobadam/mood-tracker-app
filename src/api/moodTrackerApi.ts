@@ -1,4 +1,4 @@
-import { Mood, MoodType } from "../types/mood-types";
+import { Mood, MoodType, NewMood } from "../types/mood-types";
 
 const API_URL: string =
   process.env.REACT_APP_API_URL || "http://localhost:8080";
@@ -10,19 +10,13 @@ export async function fetchMoods(): Promise<Mood[]> {
   return response.json();
 }
 
-export async function addMood(type: MoodType): Promise<Mood> {
+export async function addMood(type: MoodType): Promise<Mood | null> {
   try {
-    const moods = await fetchMoods();
-    const latestId = moods.length ? Math.max(...moods.map((m) => m.id)) : 0;
-    const newId = latestId + 1;
-
-    const mood: Mood = {
-      createdAt: new Date().toISOString(),
-      id: newId,
+    const mood: NewMood = {
       type,
     };
 
-    const response = await fetch(`${API_URL}/moods`, {
+    const response = await fetch(`${API_URL}/mood`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,17 +30,7 @@ export async function addMood(type: MoodType): Promise<Mood> {
 
     return response.json();
   } catch (error) {
-    // adding fallback for backend not connected and posting into the db.json instead
-    console.error("Backend not connecting", error);
-
-    const moods = await fetchMoods().catch(() => []);
-    const latestId = moods.length ? Math.max(...moods.map((m) => m.id)) : 0;
-    const newId = latestId + 1;
-
-    return {
-      createdAt: new Date().toISOString(),
-      id: newId,
-      type,
-    };
+    console.error("Error adding mood:", error);
+    return null;
   }
 }
