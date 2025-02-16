@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Mood } from "../types/mood-types";
+import { fetchMoods } from "../api/moodTrackerApi";
 
 export function useMoods() {
   const [moods, setMoods] = useState<Mood[]>([]);
@@ -9,8 +10,7 @@ export function useMoods() {
   useEffect(() => {
     const loadMoods = async () => {
       try {
-        const response = await fetch("http://localhost:3001/moods");
-        const fetchedMoods: Mood[] = await response.json();
+        const fetchedMoods: Mood[] = await fetchMoods();
 
         const sortedMoods = fetchedMoods.sort(
           (a, b) =>
@@ -18,9 +18,9 @@ export function useMoods() {
         );
 
         setMoods(sortedMoods);
-        setLoading(false);
       } catch (error) {
         setError("Failed to fetch moods");
+      } finally {
         setLoading(false);
       }
     };
