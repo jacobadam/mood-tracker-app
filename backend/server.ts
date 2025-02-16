@@ -34,6 +34,16 @@ app.post("/mood", (req, res) => {
   }
 });
 
+app.delete("/mood/:id", (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    deleteMood(id);
+    res.status(200).json({ message: "Mood deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete mood" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
 });
