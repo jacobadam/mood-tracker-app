@@ -10,27 +10,32 @@ export async function fetchMoods(): Promise<Mood[]> {
   return response.json();
 }
 
-export async function addMood(type: MoodType): Promise<Mood | null> {
-  try {
-    const mood: NewMood = {
-      type,
-    };
+export async function addMood(type: MoodType): Promise<Mood> {
+  const mood: NewMood = {
+    type,
+  };
 
-    const response = await fetch(`${API_URL}/mood`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(mood),
-    });
+  const response = await fetch(`${API_URL}/mood`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(mood),
+  });
 
-    if (!response.ok) {
-      throw new Error("Failed to add mood");
-    }
+  if (!response.ok) {
+    throw new Error("Failed to add mood");
+  }
 
-    return response.json();
-  } catch (error) {
-    console.error("Error adding mood:", error);
-    return null;
+  return response.json();
+}
+
+export async function deleteMood(id: number): Promise<void> {
+  const response = await fetch(`${API_URL}/mood/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete mood");
   }
 }
