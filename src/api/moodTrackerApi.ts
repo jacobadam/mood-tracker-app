@@ -1,20 +1,18 @@
 import { Mood, MoodType } from "../types/mood-types";
 
 const API_URL: string =
-  process.env.REACT_APP_API_URL || "http://localhost:3001";
+  process.env.REACT_APP_API_URL || "http://localhost:8080";
 
-export async function fetchMoods(apiKey: string): Promise<Mood[]> {
-  const response = await fetch(`${API_URL}/moods`, {
-    headers: { Authorization: `Bearer ${apiKey}` },
-  });
+export async function fetchMoods(): Promise<Mood[]> {
+  const response = await fetch(`${API_URL}/moods`);
 
   if (!response.ok) throw new Error("Failed to fetch moods");
   return response.json();
 }
 
-export async function addMood(type: MoodType, apiKey: string): Promise<Mood> {
+export async function addMood(type: MoodType): Promise<Mood> {
   try {
-    const moods = await fetchMoods(apiKey);
+    const moods = await fetchMoods();
     const latestId = moods.length ? Math.max(...moods.map((m) => m.id)) : 0;
     const newId = latestId + 1;
 
@@ -28,7 +26,6 @@ export async function addMood(type: MoodType, apiKey: string): Promise<Mood> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify(mood),
     });
@@ -42,7 +39,7 @@ export async function addMood(type: MoodType, apiKey: string): Promise<Mood> {
     // adding fallback for backend not connected and posting into the db.json instead
     console.error("Backend not connecting", error);
 
-    const moods = await fetchMoods(apiKey).catch(() => []);
+    const moods = await fetchMoods().catch(() => []);
     const latestId = moods.length ? Math.max(...moods.map((m) => m.id)) : 0;
     const newId = latestId + 1;
 
