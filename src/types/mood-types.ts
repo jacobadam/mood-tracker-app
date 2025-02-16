@@ -3,9 +3,12 @@ export enum MoodType {
   EXCITED = "EXCITED",
   PLEASANT = "PLEASANT",
 }
-
 export interface Mood {
   createdAt: string;
   id: number;
   type: MoodType;
 }
+
+export type NewMood = {
+  type: MoodType;
+};
