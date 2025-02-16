@@ -21,8 +21,7 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
   onClose,
   onMoodSelect,
 }) => {
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const { loading, error, postMood } = useAddMood(apiKey);
+  const { loading, error, postMood } = useAddMood();
 
   const moodButtons: MoodButton[] = [
     { animation: pleasantMood, label: "Pleasant", type: MoodType.PLEASANT },
