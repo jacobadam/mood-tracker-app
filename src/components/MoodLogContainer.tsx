@@ -51,6 +51,7 @@ const MoodLogContainer: React.FC<{
                 mood={mood.type}
                 date={mood.createdAt}
                 isSelected={selectedMoodId === mood.id}
+                moodId={mood.id}
                 onMoodSelect={() => handleMoodCardSelect(mood)}
               />
             </motion.div>
@@ -84,6 +85,7 @@ const MoodLogContainer: React.FC<{
                 mood={mood.type}
                 date={mood.createdAt}
                 isSelected={selectedMoodId === mood.id}
+                moodId={mood.id}
                 onMoodSelect={() => handleMoodCardSelect(mood)}
               />
             </SwiperSlide>
