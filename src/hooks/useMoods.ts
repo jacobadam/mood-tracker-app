@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Mood } from "../types/mood-types";
-import { fetchMoods } from "../api/moodTrackerApi";
+import { fetchMoods, deleteMood } from "../api/moodTrackerApi";
 
 export function useMoods() {
   const [moods, setMoods] = useState<Mood[]>([]);
@@ -28,5 +28,15 @@ export function useMoods() {
     loadMoods();
   }, []);
 
-  return { moods, loading, error };
+  const handleDeleteMood = async (id: number) => {
+    try {
+      await deleteMood(id);
+      const updatedMoods = await fetchMoods();
+      setMoods(updatedMoods);
+    } catch (error) {
+      setError("Failed to delete mood");
+    }
+  };
+
+  return { moods, loading, error, handleDeleteMood };
 }
