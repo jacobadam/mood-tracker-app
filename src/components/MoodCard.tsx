@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import CloseIcon from "../assets/close.svg";
 import Lottie from "react-lottie";
 import { MoodType } from "../types/mood-types";
 import { LottieData } from "../types/lottie-types";
+import { useMoods } from "../hooks/useMoods";
 
 interface MoodCardProps {
   lottie: LottieData;
   mood: MoodType;
   date: string;
   isSelected: boolean;
+  moodId: number;
   onMoodSelect: (mood: MoodType) => void;
 }
 const MoodCard: React.FC<MoodCardProps> = ({
@@ -15,8 +18,10 @@ const MoodCard: React.FC<MoodCardProps> = ({
   mood,
   date,
   isSelected,
+  moodId,
   onMoodSelect,
 }) => {
+  const { handleDeleteMood } = useMoods();
   const [isHovered, setIsHovered] = useState(false);
 
   const formattedMood =
@@ -58,27 +63,40 @@ const MoodCard: React.FC<MoodCardProps> = ({
 
   return (
     <>
-      <button
-        onClick={() => onMoodSelect(mood)}
+      <div
+        className="relative flex flex-row"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`hidden lg:flex items-center w-full min-w-80 justify-center px-6 h-20 rounded-3xl bg-white border-2 focus:outline-none focus:ring-2 transition-transform hover:h-32 hover:bg-lavender-200 lg:block ${
-          isSelected ? "border-lavender-300" : "border-transparent"
-        }`}
       >
-        <div className="flex items-center justify-center gap-4">
-          <div className="w-16 h-12">
-            <Lottie options={defaultOptions} isStopped={!isHovered} />
-          </div>
+        <button
+          onClick={() => onMoodSelect(mood)}
+          className={`hidden lg:flex items-center w-full min-w-80 justify-center px-6 h-20 rounded-3xl bg-white border-2 focus:outline-none focus:ring-2 transition-transform hover:h-32 hover:bg-lavender-200 lg:block ${
+            isSelected ? "border-lavender-300" : "border-transparent"
+          }`}
+        >
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-16 h-12">
+              <Lottie options={defaultOptions} isStopped={!isHovered} />
+            </div>
 
-          <div className="flex flex-col justify-center items-start w-full h-full">
-            <span className="text-lg font-medium text-gray-800">
-              {formattedMood}
-            </span>
-            <span className="text-sm text-gray-500">{finalFormattedDate}</span>
+            <div className="flex flex-col justify-center items-start w-full h-full">
+              <span className="text-lg font-medium text-gray-800">
+                {formattedMood}
+              </span>
+              <span className="text-sm text-gray-500">
+                {finalFormattedDate}
+              </span>
+            </div>
           </div>
-        </div>
-      </button>
+        </button>
+        <button
+          className="appearance-none border-none bg-transparent duration-200 opacity-0 hover:opacity-100"
+          aria-label="Delete"
+          onClick={() => handleDeleteMood(moodId)}
+        >
+          <img src={CloseIcon} alt="Close" className="w-6 h-6" />
+        </button>
+      </div>
 
       <button
         onClick={() => onMoodSelect(mood)}
