@@ -12,7 +12,6 @@ export const useAddMood = () => {
 
     try {
       const newMood = await addMood(mood);
-      console.log(`Mood "${mood}" successfully posted.`);
       return newMood;
     } catch (error) {
       setError(`Failed to post mood: ${(error as Error).message}`);
