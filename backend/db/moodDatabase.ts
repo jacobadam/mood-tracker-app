@@ -35,13 +35,22 @@ export const addMood = (type: string): any | null => {
   }
 };
 
-export const deleteMood = (id: number): void => {
+export const deleteMood = (id: number): any | null => {
   try {
-    const sql = `
+    const sqlSelect = `SELECT * FROM moods WHERE id = ?`;
+    const entry = db.prepare(sqlSelect).get(id);
+
+    if (!entry) return null;
+
+    const sqlDelete = `
     DELETE FROM moods 
     WHERE id = ?
   `;
-    db.prepare(sql).run(id);
+
+    const stmt = db.prepare(sqlDelete);
+    const info = stmt.run(id);
+
+    return info.changes > 0 ? entry : null;
   } catch (error) {
     console.log("error deleting mood:", error);
   }
