@@ -16,13 +16,20 @@ export const getMoods = (): any[] => {
   }
 };
 
-export const addMood = (type: string): void => {
+export const addMood = (type: string): any | null => {
   try {
     const sql = `
     INSERT INTO moods (createdAt, type)
     VALUES (?, ?)
   `;
-    db.prepare(sql).run(new Date().toISOString(), type);
+    const stmt = db.prepare(sql);
+    const info = stmt.run(new Date().toISOString(), type);
+
+    if (info.changes > 0) {
+      return db
+        .prepare(`SELECT * FROM moods WHERE id = ?`)
+        .get(info.lastInsertRowid);
+    }
   } catch (error) {
     console.log("error adding mood:", error);
   }
