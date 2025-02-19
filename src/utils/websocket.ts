@@ -5,13 +5,13 @@ let socket: Socket | null = null;
 
 export const connectWebSocket = (onNewMood?: (mood: Mood) => void): void => {
   if (!socket) {
-    socket = io("http://localhost:3001");
+    socket = io("http://localhost:8080");
 
     socket.on("connect", () => {
       console.log("Connected to WebSocket server");
     });
 
-    socket.on("new-mood", (data: Mood) => {
+    socket.on("moodAdded", (data: Mood) => {
       console.log("New mood received:", data);
       onNewMood?.(data);
     });
