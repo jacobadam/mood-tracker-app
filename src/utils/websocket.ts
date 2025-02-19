@@ -3,7 +3,10 @@ import { Mood } from "../types/mood-types";
 
 let socket: Socket | null = null;
 
-export const connectWebSocket = (onNewMood?: (mood: Mood) => void): void => {
+export const connectWebSocket = (
+  onNewMood?: (mood: Mood) => void,
+  onDeleteMood?: (id: number) => void
+): void => {
   if (!socket) {
     socket = io("http://localhost:8080");
 
@@ -14,6 +17,11 @@ export const connectWebSocket = (onNewMood?: (mood: Mood) => void): void => {
     socket.on("moodAdded", (data: Mood) => {
       console.log("New mood received:", data);
       onNewMood?.(data);
+    });
+
+    socket.on("moodDeleted", (data: { id: number }) => {
+      console.log("Mood deleted:", data.id);
+      onDeleteMood?.(data.id);
     });
 
     socket.on("disconnect", () => {
