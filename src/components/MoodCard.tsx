@@ -3,7 +3,7 @@ import CloseIcon from "../assets/close.svg";
 import Lottie from "react-lottie";
 import { MoodType } from "../types/mood-types";
 import { LottieData } from "../types/lottie-types";
-import { useMoods } from "../hooks/useMoods";
+import { useDeleteMood } from "../hooks/useDeleteMood";
 
 interface MoodCardProps {
   lottie: LottieData;
@@ -21,7 +21,7 @@ const MoodCard: React.FC<MoodCardProps> = ({
   moodId,
   onMoodSelect,
 }) => {
-  const { handleDeleteMood } = useMoods();
+  const { removeMood } = useDeleteMood();
   const [isHovered, setIsHovered] = useState(false);
 
   const formattedMood =
@@ -92,7 +92,7 @@ const MoodCard: React.FC<MoodCardProps> = ({
         <button
           className="appearance-none border-none bg-transparent duration-200 opacity-0 hover:opacity-100"
           aria-label="Delete"
-          onClick={() => handleDeleteMood(moodId)}
+          onClick={() => removeMood(moodId)}
         >
           <img src={CloseIcon} alt="Close" className="w-6 h-6" />
         </button>
