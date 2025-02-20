@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import gsap from "gsap";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
@@ -105,7 +105,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
 
       setExit(true);
     }
-  }, [mood]);
+  }, [mood, currentConfig.id]);
 
   const handleExitComplete = () => {
     if (mood && moodConfigs[mood]) {
