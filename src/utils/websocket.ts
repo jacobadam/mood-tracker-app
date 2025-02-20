@@ -7,8 +7,10 @@ export const connectWebSocket = (
   onNewMood?: (mood: Mood) => void,
   onDeleteMood?: (id: number) => void
 ): void => {
+  const API_URL: string =
+    process.env.REACT_APP_API_URL || "http://localhost:8080";
   if (!socket) {
-    socket = io("http://localhost:8080");
+    socket = io(API_URL);
 
     socket.on("connect", () => {
       console.log("Connected to WebSocket server");
