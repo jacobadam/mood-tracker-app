@@ -27,8 +27,6 @@ export const getMoods = async (): Promise<any[]> => {
   try {
     const result = await client.query("SELECT * FROM moods");
 
-    console.log("RESULT!!!", result.rows);
-
     const moods = result.rows.map((mood) => ({
       ...mood,
       createdAt: new Date(mood.createdAt).toISOString(),
