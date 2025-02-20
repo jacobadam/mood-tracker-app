@@ -89,8 +89,11 @@ const MoodCard: React.FC<MoodCardProps> = ({
             </div>
           </div>
         </button>
+
         <button
-          className="appearance-none border-none bg-transparent duration-200 opacity-0 hover:opacity-100"
+          className={`hidden lg:flex absolute right-2 top-2 transition-opacity appearance-none border-none bg-transparent ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
           aria-label="Delete"
           onClick={() => removeMood(moodId)}
         >
