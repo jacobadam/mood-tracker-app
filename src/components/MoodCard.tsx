@@ -37,7 +37,7 @@ const MoodCard: React.FC<MoodCardProps> = ({
   const formattedTime = newDate.toLocaleString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
-    hour12: true,
+    hour12: false,
   });
 
   const finalFormattedDate = `${formattedDate} at ${formattedTime}`;
@@ -48,7 +48,7 @@ const MoodCard: React.FC<MoodCardProps> = ({
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      hour12: true,
+      hour12: false,
     })
     .replace(",", "");
 
