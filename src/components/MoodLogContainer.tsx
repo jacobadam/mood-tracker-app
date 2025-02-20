@@ -69,9 +69,13 @@ const MoodLogContainer: React.FC<{
           }}
           loop={true}
           centeredSlides={true}
+          slidesPerView={2}
+          spaceBetween={8}
           breakpoints={{
-            320: { slidesPerView: 2, spaceBetween: 8 },
             480: { slidesPerView: 3, spaceBetween: 8 },
+            640: { slidesPerView: 4, spaceBetween: 8 },
+            768: { slidesPerView: 5, spaceBetween: 12 },
+            900: { slidesPerView: 6, spaceBetween: 12 },
           }}
         >
           {moods.map((mood, index) => (
