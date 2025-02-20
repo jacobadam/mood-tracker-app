@@ -9,8 +9,6 @@ import { getMoods, addMood, deleteMood } from "./db/moodDatabase.js";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8080;
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -42,19 +40,19 @@ app.get("/", (_req: Request, res: Response) => {
   res.send("Hello from / server");
 });
 
-app.get("/moods", (_req: Request, res: Response) => {
+app.get("/moods", async (_req: Request, res: Response) => {
   try {
-    const moods = getMoods();
+    const moods = await getMoods();
     res.json(moods);
   } catch (error) {
     res.status(500).json({ error: "failed to fetch moods" });
   }
 });
 
-app.post("/mood", validateMood, (req: Request, res: Response) => {
+app.post("/mood", validateMood, async (req: Request, res: Response) => {
   try {
     const { type } = req.body;
-    const newMood = addMood(type);
+    const newMood = await addMood(type);
 
     if (!newMood) {
       console.error("Failed to retrieve newMood after insertion.");
@@ -70,7 +68,7 @@ app.post("/mood", validateMood, (req: Request, res: Response) => {
   }
 });
 
-app.delete("/mood/:id", (req: Request, res: Response) => {
+app.delete("/mood/:id", async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
 
@@ -78,7 +76,12 @@ app.delete("/mood/:id", (req: Request, res: Response) => {
       return res.status(400).json({ error: "Invalid mood ID" });
     }
 
-    deleteMood(id);
+    const deletedMood = await deleteMood(id);
+
+    if (!deletedMood) {
+      return res.status(404).json({ error: "Mood not found" });
+    }
+
     res.status(200).json({ message: "Mood deleted successfully" });
     io.emit("moodDeleted", { id });
   } catch (error) {
@@ -104,6 +107,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => {
-  console.log(`server is listening on port ${port}`);
+server.listen(process.env.PORT || 8080, () => {
+  console.log(`server is listening on port ${process.env.PORT || 8080}`);
 });
