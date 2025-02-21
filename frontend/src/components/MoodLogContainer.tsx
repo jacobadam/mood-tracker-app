@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MoodCard from "./MoodCard";
-import pleasantLottie from "../assets/lottie/pleasant.json";
-import sadLottie from "../assets/lottie/sad.json";
-import excitedLottie from "../assets/lottie/excited.json";
+import pleasantLottie from "../../src/assets/lottie/pleasant.json";
+import sadLottie from "../../src/assets/lottie/sad.json";
+import excitedLottie from "../../src/assets/lottie/excited.json";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";

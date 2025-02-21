@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Mood } from "../types/mood-types";
-import { fetchMoods } from "../api/moodTrackerApi";
-import { connectWebSocket, disconnectWebSocket } from "../utils/websocket";
+import { fetchMoods } from "../services/moodTrackerApi";
+import { connectWebSocket, disconnectWebSocket } from "../services/websocket";
 
 export function useMoods() {
   const [moods, setMoods] = useState<Mood[]>([]);

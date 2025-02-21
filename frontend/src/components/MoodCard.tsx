@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CloseIcon from "../assets/close.svg";
 import Lottie from "react-lottie";
 import { MoodType } from "../types/mood-types";
 import { LottieData } from "../types/lottie-types";
@@ -97,7 +96,11 @@ const MoodCard: React.FC<MoodCardProps> = ({
           aria-label="Delete"
           onClick={() => removeMood(moodId)}
         >
-          <img src={CloseIcon} alt="Close" className="w-6 h-6" />
+          <img
+            src={`${process.env.PUBLIC_URL}/close.svg`}
+            alt="Close"
+            className="w-6 h-6"
+          />
         </button>
       </div>
 

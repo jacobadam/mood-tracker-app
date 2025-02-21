@@ -1,9 +1,8 @@
 import React from "react";
-import CloseIcon from "../assets/close.svg";
 import Lottie from "react-lottie";
-import pleasantMood from "../assets/lottie/pleasant.json";
-import sadMood from "../assets/lottie/sad.json";
-import excitedMood from "../assets/lottie/excited.json";
+import pleasantMood from "../../src/assets/lottie/pleasant.json";
+import sadMood from "../../src/assets/lottie/sad.json";
+import excitedMood from "../../src/assets/lottie/excited.json";
 import { useAddMood } from "../hooks/useAddMood";
 import { MoodType } from "../types/mood-types";
 
@@ -43,7 +42,11 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
           className="absolute top-4 right-4 appearance-none border-none bg-transparent p-0"
           aria-label="Close"
         >
-          <img src={CloseIcon} alt="Close" className="w-6 h-6" />
+          <img
+            src={`${process.env.PUBLIC_URL}/close.svg`}
+            alt="Close"
+            className="w-6 h-6"
+          />
         </button>
 
         <h2 className="text-lg lg:text-4xl font-extrabold mb-4 text-center pb-8">

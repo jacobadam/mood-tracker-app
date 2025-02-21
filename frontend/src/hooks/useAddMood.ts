@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addMood } from "../api/moodTrackerApi";
+import { addMood } from "../services/moodTrackerApi";
 import { Mood, MoodType } from "../types/mood-types";
 
 export const useAddMood = () => {

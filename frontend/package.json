@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react-lottie": "^1.2.10",
     "gsap": "^3.12.7",
     "motion": "^12.4.5",
     "react": "^19.0.0",

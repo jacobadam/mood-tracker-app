@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteMood } from "../api/moodTrackerApi";
+import { deleteMood } from "../services/moodTrackerApi";
 
 export const useDeleteMood = () => {
   const [loading, setLoading] = useState(false);

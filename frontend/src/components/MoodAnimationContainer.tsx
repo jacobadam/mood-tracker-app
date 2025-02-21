@@ -5,9 +5,9 @@ import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
 import { ExcitedMoodConfig } from "../mood-configs/ExcitedMoodConfig";
 import Lottie from "react-lottie";
-import pleasantLottie from "../assets/lottie/pleasant.json";
-import sadLottie from "../assets/lottie/sad.json";
-import excitedLottie from "../assets/lottie/excited.json";
+import pleasantLottie from "../../src/assets/lottie/pleasant.json";
+import sadLottie from "../../src/assets/lottie/sad.json";
+import excitedLottie from "../../src/assets/lottie/excited.json";
 import { MoodConfig } from "../types/mood-config-types";
 import { MoodType } from "../types/mood-types";
 import { LottieData } from "../types/lottie-types";
@@ -143,7 +143,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
         </p>
 
         <div className="lottie-container w-24 h-24 md:w-40 md:h-40 2xl:w-56 2xl:h-56">
-          <Lottie animationData={excitedLottie} options={defaultOptions} />
+          <Lottie options={defaultOptions} />
         </div>
       </div>
 
