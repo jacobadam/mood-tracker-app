@@ -4,8 +4,8 @@ export enum MoodType {
   PLEASANT = "PLEASANT",
 }
 export interface Mood {
-  createdAt: string;
   id: number;
+  createdAt: string;
   type: MoodType;
 }
 
