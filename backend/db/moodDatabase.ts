@@ -1,5 +1,6 @@
 import pg from "pg";
 import dotenv from "dotenv";
+import { Mood, MoodType } from "./types/mood-types.js";
 
 dotenv.config();
 
@@ -23,11 +24,11 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-export const getMoods = async (): Promise<any[]> => {
+export const getMoods = async (): Promise<Mood[]> => {
   try {
     const result = await pool.query("SELECT * FROM moods");
 
-    const moods = result.rows.map((mood) => ({
+    const moods: Mood[] = result.rows.map((mood) => ({
       ...mood,
       createdAt: new Date(mood.createdAt).toISOString(),
     }));
@@ -39,20 +40,20 @@ export const getMoods = async (): Promise<any[]> => {
   }
 };
 
-export const addMood = async (type: string): Promise<any | null> => {
+export const addMood = async (type: string): Promise<Mood | null> => {
   try {
     const result = await pool.query(
       `INSERT INTO moods ("createdAt", type) VALUES ($1, $2) RETURNING *`,
       [new Date().toISOString(), type]
     );
-    return result.rows[0];
+    return result.rows[0] as Mood;
   } catch (error) {
     console.log("error adding mood:", error);
     return null;
   }
 };
 
-export const deleteMood = async (id: number): Promise<any | null> => {
+export const deleteMood = async (id: number): Promise<Mood | null> => {
   try {
     const selectQuery = "SELECT * FROM moods WHERE id = $1";
     const selectResult = await pool.query(selectQuery, [id]);
@@ -63,7 +64,7 @@ export const deleteMood = async (id: number): Promise<any | null> => {
 
     const deleteQuery = "DELETE FROM moods WHERE id = $1";
     await pool.query(deleteQuery, [id]);
-    return selectResult.rows[0];
+    return selectResult.rows[0] as Mood;
   } catch (error) {
     console.log("error deleting mood:", error);
     return null;
