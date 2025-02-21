@@ -3,29 +3,29 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const { Client } = pg;
+const { Pool } = pg;
 
-const client = new Client({
+const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   port: parseInt(process.env.DB_PORT || "5432"),
 });
 
-client
+pool
   .connect()
   .then(() => console.log("Connected to PostgreSQL"))
   .catch((err) => console.error("Connection error", err.stack));
 
 process.on("SIGINT", async () => {
   console.log("Gracefully shutting down...");
-  await client.end();
+  await pool.end();
   process.exit(0);
 });
 
 export const getMoods = async (): Promise<any[]> => {
   try {
-    const result = await client.query("SELECT * FROM moods");
+    const result = await pool.query("SELECT * FROM moods");
 
     const moods = result.rows.map((mood) => ({
       ...mood,
@@ -41,7 +41,7 @@ export const getMoods = async (): Promise<any[]> => {
 
 export const addMood = async (type: string): Promise<any | null> => {
   try {
-    const result = await client.query(
+    const result = await pool.query(
       `INSERT INTO moods ("createdAt", type) VALUES ($1, $2) RETURNING *`,
       [new Date().toISOString(), type]
     );
@@ -55,14 +55,14 @@ export const addMood = async (type: string): Promise<any | null> => {
 export const deleteMood = async (id: number): Promise<any | null> => {
   try {
     const selectQuery = "SELECT * FROM moods WHERE id = $1";
-    const selectResult = await client.query(selectQuery, [id]);
+    const selectResult = await pool.query(selectQuery, [id]);
 
     if (selectResult.rows.length === 0) {
       return null;
     }
 
     const deleteQuery = "DELETE FROM moods WHERE id = $1";
-    await client.query(deleteQuery, [id]);
+    await pool.query(deleteQuery, [id]);
     return selectResult.rows[0];
   } catch (error) {
     console.log("error deleting mood:", error);
