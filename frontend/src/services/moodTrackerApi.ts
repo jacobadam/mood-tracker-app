@@ -1,7 +1,7 @@
 import { Mood, MoodType, NewMood } from "../types/mood-types";
 
 const API_URL: string =
-  process.env.REACT_APP_API_URL || "http://localhost:8080";
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
 export async function fetchMoods(): Promise<Mood[]> {
   const response = await fetch(`${API_URL}/moods`);
