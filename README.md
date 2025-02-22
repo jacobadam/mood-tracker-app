@@ -6,8 +6,6 @@ The Mood Tracker App allows users to dynamically select and log their moods whil
 
 ### Running the Application
 
-#### Prerequisites
-
 #### Installation
 
 #### Access the frontend:
