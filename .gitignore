@@ -26,3 +26,6 @@ yarn-error.log*
 
 # database
 database.db
+
+# Local Netlify folder
+.netlify
