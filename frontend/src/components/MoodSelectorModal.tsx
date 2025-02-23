@@ -57,7 +57,7 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
           {moodButtons.map((mood, index) => (
             <button
               key={index}
-              className="flex flex-col items-center justify-center w-20 h-20 sm:w-40 sm:h-40 lg:w-[252px] lg:h-[242px] bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl"
+              className="flex flex-col items-center justify-center w-24 h-24 sm:w-40 sm:h-40 lg:w-[252px] lg:h-[242px] bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl"
               onClick={() => handleMoodSelect(mood.type)}
             >
               <div className="w-8 h-8 sm:w-16 sm:h-16">
