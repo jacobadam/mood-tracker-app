@@ -70,7 +70,9 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
                   }}
                 />
               </div>
-              <span className="mt-2 text-base font-bold h-4">{mood.label}</span>
+              <span className="mt-2 text-base font-bold h-4 text-black">
+                {mood.label}
+              </span>
             </button>
           ))}
         </div>

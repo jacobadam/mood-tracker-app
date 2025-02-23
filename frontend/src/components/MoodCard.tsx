@@ -111,7 +111,9 @@ const MoodCard: React.FC<MoodCardProps> = ({
         <div className="w-8 h-8">
           <Lottie options={defaultOptions} isPaused />
         </div>
-        <span className="mt-2 text-sm font-bold h-4">{formattedMood}</span>
+        <span className="mt-2 text-sm font-bold h-4 text-black">
+          {formattedMood}
+        </span>
         <span className="mt-2 text-sm text-gray-500">
           {finalFormattedDateMobile}
         </span>
