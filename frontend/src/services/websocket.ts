@@ -8,7 +8,9 @@ export const connectWebSocket = (
   onDeleteMood?: (id: number) => void
 ): void => {
   const API_URL: string =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
+      : "http://localhost:8080";
   if (!socket) {
     socket = io(API_URL);
 
