@@ -14,12 +14,17 @@ const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
 
   return (
     <>
-      <button
-        onClick={openModal}
-        className="w-full min-w-80 h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
-      >
-        LOG MOOD
-      </button>
+      <div className="w-full">
+        <div className="flex flex-2">
+          <button
+            onClick={openModal}
+            className="min-w-full lg:min-w-80 h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
+          >
+            LOG MOOD
+          </button>
+          <div className="flex flex-1 justify-end items-center" />
+        </div>
+      </div>
 
       {isModalOpen && (
         <MoodSelectorModal
