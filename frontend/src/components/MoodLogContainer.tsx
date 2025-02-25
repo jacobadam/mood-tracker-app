@@ -35,7 +35,7 @@ const MoodLogContainer: React.FC<{
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="fade-mask flex flex-col gap-2 p-4 overflow-y-auto w-full no-scrollbar items-center">
+    <div className="flex flex-col gap-2 overflow-y-auto w-full no-scrollbar fade-mask">
       <div className="hidden lg:flex flex-col gap-2 w-full">
         <AnimatePresence initial={false}>
           {moods.map((mood) => (
