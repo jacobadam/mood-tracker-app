@@ -106,21 +106,33 @@ const MoodCard: React.FC<MoodCardProps> = ({
           </button>
         </div>
       </div>
-
-      <button
-        onClick={() => onMoodSelect(mood)}
-        className="flex flex-col items-center justify-center w-30 h-30 bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl lg:hidden"
-      >
-        <div className="w-8 h-8">
-          <Lottie options={defaultOptions} isPaused />
-        </div>
-        <span className="mt-2 text-sm font-bold h-4 text-black">
-          {formattedMood}
-        </span>
-        <span className="mt-2 text-sm text-gray-500">
-          {finalFormattedDateMobile}
-        </span>
-      </button>
+      <div className="flex flex-col justify-center lg:hidden">
+        <button
+          onClick={() => onMoodSelect(mood)}
+          className="flex flex-col items-center justify-center bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl"
+        >
+          <div className="w-10 h-10">
+            <Lottie options={defaultOptions} isPaused />
+          </div>
+          <span className="mt-2 text-sm font-bold h-4 text-black">
+            {formattedMood}
+          </span>
+          <span className="mt-2 text-sm text-gray-500">
+            {finalFormattedDateMobile}
+          </span>
+        </button>
+        <button
+          className="appearance-none border-none bg-transparent "
+          aria-label="Delete"
+          onClick={() => removeMood(moodId)}
+        >
+          <img
+            src={`${process.env.PUBLIC_URL}/close.svg`}
+            alt="Close"
+            className="mt-1 w-5 h-5"
+          />
+        </button>
+      </div>
     </>
   );
 };
