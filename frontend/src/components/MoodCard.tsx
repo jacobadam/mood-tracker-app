@@ -109,7 +109,9 @@ const MoodCard: React.FC<MoodCardProps> = ({
       <div className="flex flex-col justify-center lg:hidden">
         <button
           onClick={() => onMoodSelect(mood)}
-          className="flex flex-col items-center justify-center bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl"
+          className={`flex flex-col items-center justify-center bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl  ${
+            isSelected ? "border-lavender-300" : "border-transparent"
+          }`}
         >
           <div className="w-10 h-10">
             <Lottie options={defaultOptions} isPaused />
@@ -121,8 +123,11 @@ const MoodCard: React.FC<MoodCardProps> = ({
             {finalFormattedDateMobile}
           </span>
         </button>
+
         <button
-          className="appearance-none border-none bg-transparent "
+          className={`appearance-none border-none bg-transparent ${
+            isSelected ? "opacity-100" : "opacity-0"
+          }`}
           aria-label="Delete"
           onClick={() => removeMood(moodId)}
         >

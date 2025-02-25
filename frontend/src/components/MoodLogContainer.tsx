@@ -35,7 +35,7 @@ const MoodLogContainer: React.FC<{
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex flex-col gap-2 overflow-y-auto w-full no-scrollbar lg:fade-mask">
+    <div className="flex flex-col gap-2 overflow-y-auto w-full no-scrollbar items-center fade-mask">
       <div className="hidden lg:flex flex-col gap-2 w-full">
         <AnimatePresence initial={false}>
           {moods.map((mood) => (
@@ -59,7 +59,7 @@ const MoodLogContainer: React.FC<{
         </AnimatePresence>
       </div>
 
-      <div className="w-full p-0 lg:hidden">
+      <div className="w-full p-0 lg:hidden mt-6">
         <Swiper
           modules={[Navigation, Pagination]}
           pagination={{

@@ -18,7 +18,7 @@ const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
         <div className="flex flex-2">
           <button
             onClick={openModal}
-            className="min-w-full lg:min-w-80 h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none"
+            className="min-w-full lg:min-w-80 h-20 p-6 rounded-3xl bg-lavender-300 hover:bg-lavender-200 text-white border-none  mt-2 lg:mt-0"
           >
             LOG MOOD
           </button>
