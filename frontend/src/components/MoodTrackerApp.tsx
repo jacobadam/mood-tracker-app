@@ -28,7 +28,7 @@ const MoodTrackerApp: React.FC = () => {
         <MoodAnimationContainer mood={selectedMood} />
       </div>
 
-      <div className="relative flex max-w-full lg:max-w-[35%] h-full flex-col items-center">
+      <div className="relative flex max-w-full lg:max-w-[35%] h-full flex-col p-2">
         <MoodLogContainer
           selectedMood={selectedMood}
           onMoodSelect={handleMoodSelect}
