@@ -96,6 +96,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({
       });
 
       if (mood === MoodType.EXCITED) {
+        gsap.set(".lottie-container", { rotation: 0 });
         gsap.to(".lottie-container", {
           rotation: 360,
           duration: 2,
