@@ -15,25 +15,35 @@ export const connectWebSocket = (
     socket = io(API_URL);
 
     socket.on("connect", () => {
-      console.log("Connected to WebSocket server");
+      if (process.env.NODE_ENV !== "production") {
+        console.log("Connected to WebSocket server");
+      }
     });
 
     socket.on("moodAdded", (data: Mood) => {
-      console.log("New mood received:", data);
+      if (process.env.NODE_ENV !== "production") {
+        console.log("New mood received:", data);
+      }
       onNewMood?.(data);
     });
 
     socket.on("moodDeleted", (data: { id: number }) => {
-      console.log("Mood deleted:", data.id);
+      if (process.env.NODE_ENV !== "production") {
+        console.log("Mood deleted:", data.id);
+      }
       onDeleteMood?.(data.id);
     });
 
     socket.on("disconnect", () => {
-      console.log("Disconnected from WebSocket server");
+      if (process.env.NODE_ENV !== "production") {
+        console.log("Disconnected from WebSocket server");
+      }
     });
 
     socket.on("connect_error", (err: Error) => {
-      console.error("WebSocket connection error:", err.message);
+      if (process.env.NODE_ENV !== "production") {
+        console.error("WebSocket connection error:", err.message);
+      }
     });
   }
 };
@@ -41,7 +51,9 @@ export const connectWebSocket = (
 export const disconnectWebSocket = (): void => {
   if (socket) {
     socket.disconnect();
-    console.log("Disconnected from WebSocket server");
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Disconnected from WebSocket server");
+    }
     socket = null;
   }
 };
