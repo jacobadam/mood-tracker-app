@@ -31,8 +31,9 @@ const MoodLogContainer: React.FC<{
     onMoodSelect(mood.type);
   };
 
-  if (loading) return <div>Loading moods...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading)
+    return <div className="lg:mb-4 font-semibold">Loading moods...</div>;
+  if (error) return <div className="lg:mb-4 font-semibold">{error}</div>;
 
   return (
     <div className="flex flex-col gap-2 overflow-y-auto w-full no-scrollbar items-center fade-mask">
