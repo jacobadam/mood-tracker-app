@@ -1,19 +1,19 @@
 import React from "react";
 // import Lottie from "react-lottie";
-import pleasantMood from "../../src/assets/lottie/pleasant.json";
-import sadMood from "../../src/assets/lottie/sad.json";
-import excitedMood from "../../src/assets/lottie/excited.json";
+import pleasantMood from "../assets/pleasant.json";
+import sadMood from "../assets/sad.json";
+import excitedMood from "../assets/excited.json";
 import { useAddMood } from "../hooks/useAddMood";
-import { MoodType } from "../types/mood-types";
+import type { MoodTypeUnion } from "../types/mood-types";
 
 interface MoodSelectorModalProps {
   onClose: () => void;
-  onMoodSelect: (mood: MoodType) => void;
+  onMoodSelect: (mood: MoodTypeUnion) => void;
 }
 interface MoodButton {
   animation: object;
   label: string;
-  type: MoodType;
+  type: MoodTypeUnion;
 }
 
 const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
@@ -23,12 +23,12 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
   const { loading, error, postMood } = useAddMood();
 
   const moodButtons: MoodButton[] = [
-    { animation: pleasantMood, label: "Pleasant", type: MoodType.PLEASANT },
-    { animation: excitedMood, label: "Excited", type: MoodType.EXCITED },
-    { animation: sadMood, label: "Sad", type: MoodType.SAD },
+    { animation: pleasantMood, label: "Pleasant", type: "PLEASANT" },
+    { animation: excitedMood, label: "Excited", type: "EXCITED" },
+    { animation: sadMood, label: "Sad", type: "SAD" },
   ];
 
-  const handleMoodSelect = (mood: MoodType) => {
+  const handleMoodSelect = (mood: MoodTypeUnion) => {
     postMood(mood);
     onMoodSelect(mood);
     onClose();
