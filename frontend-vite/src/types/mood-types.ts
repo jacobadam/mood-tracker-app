@@ -6,8 +6,7 @@ export const MoodType = {
 
 export type MoodTypeUnion = (typeof MoodType)[keyof typeof MoodType];
 
-export type Mood = {
-  // update to MoodEntry for clarity
+export type MoodEntry = {
   id: number;
   createdAt: string;
   type: MoodTypeUnion;

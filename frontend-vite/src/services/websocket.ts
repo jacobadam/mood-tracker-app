@@ -1,10 +1,10 @@
 import { io, Socket } from "socket.io-client";
-import { type Mood } from "../types/mood-types";
+import type { MoodEntry } from "../types/mood-types";
 
 let socket: Socket | null = null;
 
 export const connectWebSocket = (
-  onNewMood?: (mood: Mood) => void,
+  onNewMood?: (mood: MoodEntry) => void,
   onDeleteMood?: (id: number) => void,
 ): void => {
   const API_URL: string =
@@ -20,7 +20,7 @@ export const connectWebSocket = (
       }
     });
 
-    socket.on("moodAdded", (data: Mood) => {
+    socket.on("moodAdded", (data: MoodEntry) => {
       if (process.env.NODE_ENV !== "production") {
         console.log("New mood received:", data);
       }

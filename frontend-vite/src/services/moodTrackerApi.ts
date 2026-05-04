@@ -1,18 +1,18 @@
-import type { Mood, MoodTypeUnion, NewMood } from "../types/mood-types";
+import type { MoodEntry, MoodTypeUnion, NewMood } from "../types/mood-types";
 
 const API_URL: string =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
     : "http://localhost:8080";
 
-export async function fetchMoods(): Promise<Mood[]> {
+export async function fetchMoods(): Promise<MoodEntry[]> {
   const response = await fetch(`${API_URL}/moods`);
 
   if (!response.ok) throw new Error("Failed to fetch moods");
   return response.json();
 }
 
-export async function addMood(type: MoodTypeUnion): Promise<Mood> {
+export async function addMood(type: MoodTypeUnion): Promise<MoodEntry> {
   const mood: NewMood = {
     type,
   };

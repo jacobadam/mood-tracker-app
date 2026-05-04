@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { addMood } from "../services/moodTrackerApi";
-import type { Mood, MoodTypeUnion } from "../types/mood-types";
+import type { MoodEntry, MoodTypeUnion } from "../types/mood-types";
 
 export const useAddMood = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const postMood = async (mood: MoodTypeUnion): Promise<Mood | null> => {
+  const postMood = async (mood: MoodTypeUnion): Promise<MoodEntry | null> => {
     setLoading(true);
     setError(null);
 

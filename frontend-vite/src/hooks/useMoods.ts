@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import type { Mood } from "../types/mood-types";
+import type { MoodEntry } from "../types/mood-types";
 import { fetchMoods } from "../services/moodTrackerApi";
 import { connectWebSocket, disconnectWebSocket } from "../services/websocket";
 
 export function useMoods() {
-  const [moods, setMoods] = useState<Mood[]>([]);
+  const [moods, setMoods] = useState<MoodEntry[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadMoods = async () => {
       try {
-        const fetchedMoods: Mood[] = await fetchMoods();
+        const fetchedMoods: MoodEntry[] = await fetchMoods();
 
         const sortedMoods = fetchedMoods.sort(
           (a, b) =>
@@ -28,7 +28,7 @@ export function useMoods() {
 
     loadMoods();
 
-    const handleNewMood = (newMood: Mood) => {
+    const handleNewMood = (newMood: MoodEntry) => {
       setMoods((prevMoods) => {
         const updatedMoods = [newMood, ...prevMoods].sort(
           (a, b) =>

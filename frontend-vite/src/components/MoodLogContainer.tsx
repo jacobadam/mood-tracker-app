@@ -7,7 +7,7 @@ import excitedLottie from "../assets/excited.json";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useMoods } from "../hooks/useMoods";
-import type { MoodTypeUnion, Mood } from "../types/mood-types";
+import type { MoodTypeUnion, MoodEntry } from "../types/mood-types";
 import { type LottieData } from "../types/lottie-types";
 
 const moodMap: Record<MoodTypeUnion, LottieData> = {
@@ -23,7 +23,7 @@ const MoodLogContainer: React.FC<{
   const { moods, loading, error } = useMoods();
   const [selectedMoodId, setSelectedMoodId] = useState<number | null>(null);
 
-  const handleMoodCardSelect = (mood: Mood) => {
+  const handleMoodCardSelect = (mood: MoodEntry) => {
     setSelectedMoodId(mood.id);
     onMoodSelect(mood.type);
   };
