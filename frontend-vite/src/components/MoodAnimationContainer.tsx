@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
 import { ExcitedMoodConfig } from "../mood-configs/ExcitedMoodConfig";
-// import Lottie from "react-lottie";
 import pleasantLottie from "../assets/pleasant.json";
 import sadLottie from "../assets/sad.json";
 import excitedLottie from "../assets/excited.json";
@@ -17,6 +16,7 @@ import type {
 import type { MoodTypeUnion } from "../types/mood-types";
 import type { LottieData } from "../types/lottie-types";
 import { moodTexts } from "../data/mood-texts";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 type MoodProps = {
   mood?: MoodTypeUnion;
@@ -44,15 +44,6 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
   const [backgroundColor, setBackgroundColor] = useState(
     `linear-gradient(${moodConfigs[mood].targetColors})`,
   );
-
-  // const defaultOptions = {
-  //   loop: true,
-  //   autoplay: true,
-  //   animationData: lottieMap[mood],
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice",
-  //   },
-  // };
 
   useEffect(() => {
     const backgroundColor = moodConfigs[mood].targetColors;
@@ -114,7 +105,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
         </p>
 
         <div className="lottie-container w-24 h-24 sm:w-40 sm:h-40 2xl:w-56 2xl:h-56">
-          {/* <Lottie options={defaultOptions} /> */}
+          <DotLottieReact data={lottieMap[mood]} autoplay loop />
         </div>
       </div>
 
