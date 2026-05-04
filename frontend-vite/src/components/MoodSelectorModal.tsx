@@ -36,7 +36,7 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
-      <div className="relative p-5 sm:p-8 rounded-2xl bg-lavender-100 md:w-full md:max-w-lg md:max-w-md lg:max-w-3xl xl:max-w-3xl sm:max-w-lg md:max-w-md lg:max-w-3xl xl:max-w-3xl">
+      <div className="relative p-5 sm:p-8 rounded-2xl bg-lavender-100 md:w-full md:max-w-md lg:max-w-3xl xl:max-w-3xl sm:max-w-lg">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 appearance-none border-none bg-transparent p-0"
