@@ -45,14 +45,14 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
     `linear-gradient(${moodConfigs[mood].targetColors})`,
   );
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: lottieMap[mood],
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: lottieMap[mood],
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice",
+  //   },
+  // };
 
   useEffect(() => {
     const backgroundColor = moodConfigs[mood].targetColors;
