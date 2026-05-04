@@ -1,1 +1,32 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --font-inter: Inter, sans-serif;
+
+  --color-lavender-100: #f1f5fe;
+  --color-lavender-200: #c2c0fa;
+  --color-lavender-300: #8582dd;
+
+  --color-midnight-100: #f5f6f4;
+  --color-midnight-200: #c6c5c5;
+  --color-midnight-300: #6c757d;
+  --color-midnight-400: #2e2f39;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
