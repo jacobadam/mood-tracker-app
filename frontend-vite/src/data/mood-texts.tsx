@@ -17,7 +17,7 @@ export const moodTexts = {
     description: (
       <>
         Got the blues, huh? Remember, even clouds <br />
-        have silver linings. We’re here for you.
+        have silver linings. We&apos;re here for you.
       </>
     ),
     color: "text-white",
