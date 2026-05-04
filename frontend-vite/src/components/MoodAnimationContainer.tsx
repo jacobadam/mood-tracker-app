@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  type TargetAndTransition,
-} from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import gsap from "gsap";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
 import { SadMoodConfig } from "../mood-configs/SadMoodConfig";
@@ -12,43 +8,18 @@ import { ExcitedMoodConfig } from "../mood-configs/ExcitedMoodConfig";
 import pleasantLottie from "../assets/pleasant.json";
 import sadLottie from "../assets/sad.json";
 import excitedLottie from "../assets/excited.json";
-import type { MoodConfig } from "../types/mood-config-types";
+import type {
+  MoodConfig,
+  MoodElement,
+  LinearGradientStop,
+  LinearGradient,
+} from "../types/mood-config-types";
 import type { MoodTypeUnion } from "../types/mood-types";
 import type { LottieData } from "../types/lottie-types";
 import { moodTexts } from "../data/mood-texts";
 
 type MoodProps = {
   mood?: MoodTypeUnion;
-};
-
-type MapElementType = {
-  id?: string;
-  type?: string;
-  d?: string;
-  fill?: string;
-  initial?: TargetAndTransition;
-  transition?: object;
-  animate?: TargetAndTransition;
-  exit?: TargetAndTransition;
-  cx?: number;
-  cy?: number;
-  rx?: number;
-  ry?: number;
-};
-
-type StopType = {
-  stopColor?: string;
-  stopOpacity?: number;
-  offset?: number;
-};
-
-type GradientType = {
-  id?: string;
-  x1?: number;
-  y1?: number;
-  x2?: number;
-  y2?: number;
-  stops: StopType[];
 };
 
 const moodConfigs: Record<MoodTypeUnion, MoodConfig> = {
@@ -161,7 +132,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
 
           <AnimatePresence onExitComplete={handleExitComplete}>
             {!exit &&
-              currentConfig.elements.map((element: MapElementType) => {
+              currentConfig.elements.map((element: MoodElement) => {
                 if (element.type === "ellipse") {
                   return (
                     <motion.ellipse
@@ -198,7 +169,7 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
         </g>
         <defs>
           {Object.values(currentConfig.linearGradients).map(
-            (gradient: GradientType, index: number) => (
+            (gradient: LinearGradient, index: number) => (
               <linearGradient
                 key={index}
                 id={gradient.id}
@@ -208,14 +179,16 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
                 y2={gradient.y2}
                 gradientUnits="userSpaceOnUse"
               >
-                {gradient.stops.map((stop: StopType, index: number) => (
-                  <stop
-                    key={index}
-                    offset={stop.offset}
-                    stopColor={stop.stopColor}
-                    stopOpacity={stop.stopOpacity}
-                  />
-                ))}
+                {gradient.stops.map(
+                  (stop: LinearGradientStop, index: number) => (
+                    <stop
+                      key={index}
+                      offset={stop.offset}
+                      stopColor={stop.stopColor}
+                      stopOpacity={stop.stopOpacity}
+                    />
+                  ),
+                )}
               </linearGradient>
             ),
           )}

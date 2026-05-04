@@ -22,16 +22,16 @@ export type MoodElement = {
   ry?: number;
   d?: string;
   fill: string;
-  initial?: Record<string, any>;
-  animate?: Record<string, any>;
-  exit?: Record<string, any>;
-  transition?: Record<string, any>;
+  initial?: Record<string, TargetAndTransition>;
+  animate?: Record<string, TargetAndTransition>;
+  exit?: Record<string, TargetAndTransition>;
+  transition?: Record<string, TargetAndTransition>;
 };
 
 export type MoodConfig = {
   id: string;
   backgroundGradientId: string;
-  targetColors: any;
+  targetColors: string[];
   elements: MoodElement[];
   linearGradients: LinearGradient[];
 };
