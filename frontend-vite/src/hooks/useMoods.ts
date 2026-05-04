@@ -19,8 +19,12 @@ export function useMoods() {
         );
 
         setMoods(sortedMoods);
-      } catch (error) {
-        setError("Failed to fetch moods");
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e.message);
+        } else {
+          setError("Unknown error");
+        }
       } finally {
         setLoading(false);
       }
