@@ -1,17 +1,18 @@
 import React from "react";
-// import Lottie from "react-lottie";
-import pleasantMood from "../assets/pleasant.json";
-import sadMood from "../assets/sad.json";
-import excitedMood from "../assets/excited.json";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import pleasantLottie from "../assets/pleasant.json";
+import sadLottie from "../assets/sad.json";
+import excitedLottie from "../assets/excited.json";
 import { useAddMood } from "../hooks/useAddMood";
 import type { MoodTypeUnion } from "../types/mood-types";
+import type { LottieData } from "../types/lottie-types";
 
 interface MoodSelectorModalProps {
   onClose: () => void;
   onMoodSelect: (mood: MoodTypeUnion) => void;
 }
 interface MoodButton {
-  animation: object;
+  animation: MoodTypeUnion;
   label: string;
   type: MoodTypeUnion;
 }
@@ -23,10 +24,16 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
   const { loading, error, postMood } = useAddMood();
 
   const moodButtons: MoodButton[] = [
-    { animation: pleasantMood, label: "Pleasant", type: "PLEASANT" },
-    { animation: excitedMood, label: "Excited", type: "EXCITED" },
-    { animation: sadMood, label: "Sad", type: "SAD" },
+    { animation: "PLEASANT", label: "Pleasant", type: "PLEASANT" },
+    { animation: "EXCITED", label: "Excited", type: "EXCITED" },
+    { animation: "SAD", label: "Sad", type: "SAD" },
   ];
+
+  const lottieMap: Record<MoodTypeUnion, LottieData> = {
+    ["PLEASANT"]: pleasantLottie,
+    ["SAD"]: sadLottie,
+    ["EXCITED"]: excitedLottie,
+  };
 
   const handleMoodSelect = (mood: MoodTypeUnion) => {
     postMood(mood);
@@ -42,11 +49,7 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
           className="absolute top-4 right-4 appearance-none border-none bg-transparent p-0"
           aria-label="Close"
         >
-          <img
-            src={`${process.env.PUBLIC_URL}/close.svg`}
-            alt="Close"
-            className="w-6 h-6"
-          />
+          <img src={"/close.svg"} alt="Close" className="w-6 h-6" />
         </button>
 
         <h2 className="text-lg lg:text-4xl font-extrabold mb-4 text-center pb-8">
@@ -61,14 +64,11 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
               onClick={() => handleMoodSelect(mood.type)}
             >
               <div className="w-8 h-8 sm:w-16 sm:h-16">
-                {/* <Lottie
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: mood.animation,
-                    rendererSettings: { preserveAspectRatio: "xMidYMid slice" },
-                  }}
-                /> */}
+                <DotLottieReact
+                  data={lottieMap[mood.animation]}
+                  autoplay
+                  loop
+                />
               </div>
               <span className="mt-2 text-base font-bold h-4 text-black">
                 {mood.label}
