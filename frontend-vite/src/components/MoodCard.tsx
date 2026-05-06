@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-// import Lottie from "react-lottie";
 import type { MoodTypeUnion } from "../types/mood-types";
-import { type LottieData } from "../types/lottie-types";
+import type { LottieData } from "../types/lottie-types";
 import { useDeleteMood } from "../hooks/useDeleteMood";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 interface MoodCardProps {
   lottie: LottieData;
@@ -51,15 +51,6 @@ const MoodCard: React.FC<MoodCardProps> = ({
     })
     .replace(",", "");
 
-  const defaultOptions = {
-    loop: false,
-    autoplay: false,
-    animationData: lottie,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <>
       <div
@@ -76,7 +67,7 @@ const MoodCard: React.FC<MoodCardProps> = ({
           >
             <div className="flex flex-2 items-center justify-center gap-4">
               <div className="pl-6 w-16 h-12">
-                {/* <Lottie options={defaultOptions} isStopped={!isHovered} /> */}
+                <DotLottieReact data={lottie} autoplay loop />
               </div>
 
               <div className="flex flex-col justify-center items-start w-full h-full">
