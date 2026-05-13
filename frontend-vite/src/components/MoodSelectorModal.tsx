@@ -1,4 +1,3 @@
-import React from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import pleasantLottie from "../assets/pleasant.json";
 import sadLottie from "../assets/sad.json";
@@ -36,7 +35,6 @@ export const MoodSelectorModal = ({
   };
 
   const handleMoodSelect = (mood: MoodTypeUnion) => {
-    // console.log(mood);
     postMood(mood);
     onMoodSelect(mood);
     onClose();
