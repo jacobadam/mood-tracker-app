@@ -3,17 +3,17 @@ import { useSearchParams } from "react-router";
 import { MoodAnimationContainer } from "./MoodAnimationContainer";
 import { MoodLogContainer } from "./MoodLogContainer";
 import { LogMoodButton } from "./LogMoodButton";
-import { type MoodTypeUnion, MoodType } from "../types/mood-types";
+import { type MoodTypeUnion, Mood } from "../types/mood-types";
 
 export const MoodTrackerApp = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const moodParam = searchParams.get("mood");
 
-  const initialMood: MoodTypeUnion = Object.values(MoodType).includes(
+  const initialMood: MoodTypeUnion = Object.values(Mood).includes(
     moodParam as MoodTypeUnion,
   )
     ? (moodParam as MoodTypeUnion)
-    : MoodType.PLEASANT;
+    : Mood.PLEASANT;
 
   const [selectedMood, setSelectedMood] = useState<MoodTypeUnion>(initialMood);
 

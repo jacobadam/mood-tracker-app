@@ -1,10 +1,10 @@
-export const MoodType = {
+export const Mood = {
   SAD: "SAD",
   EXCITED: "EXCITED",
   PLEASANT: "PLEASANT",
 } as const;
 
-export type MoodTypeUnion = (typeof MoodType)[keyof typeof MoodType];
+export type MoodTypeUnion = (typeof Mood)[keyof typeof Mood];
 
 export type MoodEntry = {
   id: number;

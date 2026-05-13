@@ -1,7 +1,7 @@
-import { MoodType } from "../types/mood-types";
+import { Mood } from "../types/mood-types";
 
 export const moodTexts = {
-  [MoodType.PLEASANT]: {
+  [Mood.PLEASANT]: {
     title: "You're feeling pleasant",
     description: (
       <>
@@ -12,7 +12,7 @@ export const moodTexts = {
     ),
     color: "text-midnight-400",
   },
-  [MoodType.SAD]: {
+  [Mood.SAD]: {
     title: "You're feeling sad",
     description: (
       <>
@@ -22,7 +22,7 @@ export const moodTexts = {
     ),
     color: "text-white",
   },
-  [MoodType.EXCITED]: {
+  [Mood.EXCITED]: {
     title: "You're feeling excited",
     description: (
       <>
