@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { MoodTypeUnion } from "../types/mood-types";
 import type { LottieData } from "../types/lottie-types";
 import { useDeleteMood } from "../hooks/useDeleteMood";
@@ -12,14 +12,14 @@ interface MoodCardProps {
   moodId: number;
   onMoodSelect: (mood: MoodTypeUnion) => void;
 }
-const MoodCard: React.FC<MoodCardProps> = ({
+export const MoodCard = ({
   lottie,
   mood,
   date,
   isSelected,
   moodId,
   onMoodSelect,
-}) => {
+}: MoodCardProps) => {
   const { removeMood } = useDeleteMood();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -132,5 +132,3 @@ const MoodCard: React.FC<MoodCardProps> = ({
     </>
   );
 };
-
-export default MoodCard;

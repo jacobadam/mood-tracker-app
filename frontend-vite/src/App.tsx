@@ -1,8 +1,7 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
-import MoodTrackerApp from "./components/MoodTrackerApp";
+import { MoodTrackerApp } from "./components/MoodTrackerApp";
 
-const App: React.FC = () => {
+export const App = () => {
   return (
     <div className="bg-gray-100">
       <BrowserRouter>
@@ -13,5 +12,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;

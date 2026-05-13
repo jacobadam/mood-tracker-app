@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useEffectEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import gsap from "gsap";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
@@ -34,22 +34,35 @@ const lottieMap: Record<MoodTypeUnion, LottieData> = {
   ["EXCITED"]: excitedLottie,
 };
 
-const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
+export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
   const [currentConfig, setCurrentConfig] = useState<MoodConfig>(
     moodConfigs[mood],
   );
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const [backgroundColor, setBackgroundColor] = useState(
+  const [backgroundColor, setBackgroundColor] = useState<string[] | string>(
     `linear-gradient(${moodConfigs[mood].targetColors})`,
   );
 
-  useEffect(() => {
-    const backgroundColor = moodConfigs[mood].targetColors;
+  console.log("hit outside of useEffect");
 
-    setBackgroundColor(backgroundColor);
+  const updateBackgroundColor = useEffectEvent(
+    (updatedBackgroundColor: string[]) => {
+      console.log(updatedBackgroundColor, "<-- BG COLOR In useEffectEvent");
+      setBackgroundColor(updatedBackgroundColor);
+    },
+  );
+
+  useEffect(() => {
+    console.log("hit inside useEffect");
+
     if (mood && mood !== currentConfig.id) {
+      console.log("trigger inside cond");
+      const backgroundColor = moodConfigs[mood].targetColors;
+
+      updateBackgroundColor(backgroundColor);
+
       gsap.to(backgroundRef.current, {
         duration: 5,
         backgroundImage: `linear-gradient(${backgroundColor})`,
@@ -191,5 +204,3 @@ const MoodAnimationContainer: React.FC<MoodProps> = ({ mood = "PLEASANT" }) => {
     </div>
   );
 };
-
-export default MoodAnimationContainer;

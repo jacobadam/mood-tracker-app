@@ -17,10 +17,10 @@ interface MoodButton {
   type: MoodTypeUnion;
 }
 
-const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
+export const MoodSelectorModal = ({
   onClose,
   onMoodSelect,
-}) => {
+}: MoodSelectorModalProps) => {
   const { loading, error, postMood } = useAddMood();
 
   const moodButtons: MoodButton[] = [
@@ -36,6 +36,7 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
   };
 
   const handleMoodSelect = (mood: MoodTypeUnion) => {
+    // console.log(mood);
     postMood(mood);
     onMoodSelect(mood);
     onClose();
@@ -82,5 +83,3 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
     </div>
   );
 };
-
-export default MoodSelectorModal;

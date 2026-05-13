@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
-import MoodAnimationContainer from "./MoodAnimationContainer";
-import MoodLogContainer from "./MoodLogContainer";
-import LogMoodButton from "./LogMoodButton";
+import { MoodAnimationContainer } from "./MoodAnimationContainer";
+import { MoodLogContainer } from "./MoodLogContainer";
+import { LogMoodButton } from "./LogMoodButton";
 import { type MoodTypeUnion, MoodType } from "../types/mood-types";
 
-const MoodTrackerApp: React.FC = () => {
+export const MoodTrackerApp = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const moodParam = searchParams.get("mood");
 
@@ -29,14 +29,9 @@ const MoodTrackerApp: React.FC = () => {
       </div>
 
       <div className="relative flex max-w-full lg:max-w-[35%] h-full flex-col p-2">
-        <MoodLogContainer
-          selectedMood={selectedMood}
-          onMoodSelect={handleMoodSelect}
-        />
+        <MoodLogContainer onMoodSelect={handleMoodSelect} />
         <LogMoodButton onMoodSelect={handleMoodSelect} />
       </div>
     </div>
   );
 };
-
-export default MoodTrackerApp;

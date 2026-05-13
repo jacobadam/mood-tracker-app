@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import MoodSelectorModal from "./MoodSelectorModal";
+import { useState } from "react";
+import { MoodSelectorModal } from "./MoodSelectorModal";
 import type { MoodTypeUnion } from "../types/mood-types";
 
 interface LogMoodButtonProps {
   onMoodSelect: (mood: MoodTypeUnion) => void;
 }
 
-const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
+export const LogMoodButton = ({ onMoodSelect }: LogMoodButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -38,5 +38,3 @@ const LogMoodButton: React.FC<LogMoodButtonProps> = ({ onMoodSelect }) => {
     </>
   );
 };
-
-export default LogMoodButton;

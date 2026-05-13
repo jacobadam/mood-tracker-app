@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import MoodCard from "./MoodCard";
+import { MoodCard } from "./MoodCard";
 import pleasantLottie from "../assets/pleasant.json";
 import sadLottie from "../assets/sad.json";
 import excitedLottie from "../assets/excited.json";
@@ -16,10 +16,11 @@ const moodMap: Record<MoodTypeUnion, LottieData> = {
   ["EXCITED"]: excitedLottie,
 };
 
-const MoodLogContainer: React.FC<{
-  selectedMood: MoodTypeUnion;
+type MoodLogContainerProps = {
   onMoodSelect: (mood: MoodTypeUnion) => void;
-}> = ({ onMoodSelect }) => {
+};
+
+export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
   const { moods, loading, error } = useMoods();
   const [selectedMoodId, setSelectedMoodId] = useState<number | null>(null);
 
@@ -98,5 +99,3 @@ const MoodLogContainer: React.FC<{
     </div>
   );
 };
-
-export default MoodLogContainer;
