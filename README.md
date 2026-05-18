@@ -8,7 +8,7 @@ This project consists of a frontend built with React, TypeScript, and Tailwind C
 
 ## Technologies Used
 
-- **Frontend:** React, TypeScript, Tailwind CSS, GSAP, Motion, Socket.IO Client, React Router DOM, React Lottie
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, GSAP, Motion, Socket.IO Client, React Router DOM, dotLottie
 - **Backend:** Node.js, TypeScript, Express, PostgreSQL, Socket.IO
 
 ## Getting Started
@@ -35,15 +35,15 @@ This project uses npm for package management. Yarn can also be used.
 
 ### Accessing the Frontend
 
-The frontend will typically be accessible at `http://localhost:3000` during development.
+The frontend will typically be accessible at `http://localhost:5173` during development.
 
 ### Query Parameter Support
 
 The app supports mood state switching through URL parameters. To change the mood:
 
-- Visit `http://localhost:3000/?mood=PLEASANT` to set the mood to PLEASANT.
-- Visit `http://localhost:3000/?mood=SAD` to set the mood to SAD.
-- Visit `http://localhost:3000/?mood=EXCITED` to set the mood to EXCITED.
+- Visit `http://localhost:5173/?mood=PLEASANT` to set the mood to PLEASANT.
+- Visit `http://localhost:5173/?mood=SAD` to set the mood to SAD.
+- Visit `http://localhost:5173/?mood=EXCITED` to set the mood to EXCITED.
 
 #### How It Works
 
