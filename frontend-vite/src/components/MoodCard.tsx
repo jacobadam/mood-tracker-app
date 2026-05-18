@@ -12,6 +12,7 @@ interface MoodCardProps {
   moodId: number;
   onMoodSelect: (mood: MoodTypeUnion) => void;
 }
+
 export const MoodCard = ({
   lottie,
   mood,
@@ -89,11 +90,7 @@ export const MoodCard = ({
             aria-label="Delete"
             onClick={() => removeMood(moodId)}
           >
-            <img
-              src={`${process.env.PUBLIC_URL}/close.svg`}
-              alt="Close"
-              className="w-6 h-6"
-            />
+            <img src={"/close.svg"} alt="Close" className="w-6 h-6" />
           </button>
         </div>
       </div>
@@ -105,7 +102,7 @@ export const MoodCard = ({
           }`}
         >
           <div className="w-10 h-10">
-            {/* <Lottie options={defaultOptions} isPaused /> */}
+            <DotLottieReact data={lottie} autoplay loop />
           </div>
           <span className="mt-2 text-sm font-bold h-4 text-black">
             {formattedMood}
@@ -122,11 +119,7 @@ export const MoodCard = ({
           aria-label="Delete"
           onClick={() => removeMood(moodId)}
         >
-          <img
-            src={`${process.env.PUBLIC_URL}/close.svg`}
-            alt="Close"
-            className="mt-1 w-5 h-5"
-          />
+          <img src={"/close.svg"} alt="Close" className="mt-1 w-5 h-5" />
         </button>
       </div>
     </>
