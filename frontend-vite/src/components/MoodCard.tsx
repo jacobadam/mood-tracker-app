@@ -62,13 +62,16 @@ export const MoodCard = ({
         <div className="flex w-full items-center">
           <button
             onClick={() => onMoodSelect(mood)}
-            className={`w-full min-w-80 justify-center px-6 h-20 rounded-3xl bg-white border-2 focus:outline-none focus:ring-2 transition-transform hover:h-32 hover:bg-lavender-200 ${
+            className={`w-full min-w-80 justify-center px-6 h-20 rounded-3xl bg-white border-2 focus:outline-none transition-transform hover:h-32 hover:bg-lavender-200 ${
               isSelected ? "border-lavender-300" : "border-transparent"
             }`}
           >
             <div className="flex flex-2 items-center justify-center gap-4">
-              <div className="pl-6 w-16 h-12">
-                <DotLottieReact data={lottie} autoplay loop />
+              <div className="pl-6 w-24 h-20">
+                <DotLottieReact
+                  data={lottie}
+                  renderConfig={{ autoResize: true }}
+                />
               </div>
 
               <div className="flex flex-col justify-center items-start w-full h-full">
@@ -102,7 +105,7 @@ export const MoodCard = ({
           }`}
         >
           <div className="w-10 h-10">
-            <DotLottieReact data={lottie} autoplay loop />
+            <DotLottieReact data={lottie} renderConfig={{ autoResize: true }} />
           </div>
           <span className="mt-2 text-sm font-bold h-4 text-black">
             {formattedMood}
@@ -113,7 +116,7 @@ export const MoodCard = ({
         </button>
 
         <button
-          className={`appearance-none border-none bg-transparent ${
+          className={`flex justify-center items-center appearance-none border-none  ${
             isSelected ? "opacity-100" : "opacity-0"
           }`}
           aria-label="Delete"
