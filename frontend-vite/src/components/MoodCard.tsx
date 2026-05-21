@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { MoodTypeUnion } from "../types/mood-types";
 import type { LottieData } from "../types/lottie-types";
 import { useDeleteMood } from "../hooks/useDeleteMood";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { DotLottieReact, type DotLottie } from "@lottiefiles/dotlottie-react";
 
 interface MoodCardProps {
   lottie: LottieData;
@@ -22,7 +22,13 @@ export const MoodCard = ({
   onMoodSelect,
 }: MoodCardProps) => {
   const { removeMood } = useDeleteMood();
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
+
+  const dotLottieRefCallback = (dotLottie: DotLottie | null) => {
+    if (!dotLottie) return;
+    setDotLottie(dotLottie);
+  };
 
   const formattedMood =
     mood.charAt(0).toUpperCase() + mood.slice(1).toLowerCase();
@@ -52,6 +58,10 @@ export const MoodCard = ({
     })
     .replace(",", "");
 
+  const autoPlayFunc = () => {
+    dotLottie?.play();
+  };
+
   return (
     <>
       <div
@@ -67,10 +77,12 @@ export const MoodCard = ({
             }`}
           >
             <div className="flex flex-2 items-center justify-center gap-4">
-              <div className="pl-6 w-24 h-20">
+              <div className="pl-4 w-16 h-16">
                 <DotLottieReact
                   data={lottie}
                   renderConfig={{ autoResize: true }}
+                  onMouseEnter={autoPlayFunc}
+                  dotLottieRefCallback={dotLottieRefCallback}
                 />
               </div>
 
@@ -97,7 +109,8 @@ export const MoodCard = ({
           </button>
         </div>
       </div>
-      <div className="flex flex-col justify-center lg:hidden">
+
+      <div className="lg:hidden flex flex-col justify-center">
         <button
           onClick={() => onMoodSelect(mood)}
           className={`flex flex-col items-center justify-center bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl  ${
