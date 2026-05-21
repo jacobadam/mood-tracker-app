@@ -4,11 +4,14 @@ import { MoodCard } from "./MoodCard";
 import pleasantLottie from "../assets/pleasant.json";
 import sadLottie from "../assets/sad.json";
 import excitedLottie from "../assets/excited.json";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import { useMoods } from "../hooks/useMoods";
 import type { MoodTypeUnion, MoodEntry } from "../types/mood-types";
-import { type LottieData } from "../types/lottie-types";
+import type { LottieData } from "../types/lottie-types";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const moodMap: Record<MoodTypeUnion, LottieData> = {
   ["PLEASANT"]: pleasantLottie,
@@ -34,8 +37,8 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
   if (error) return <div className="lg:mb-4 font-semibold">{error}</div>;
 
   return (
-    <div className="flex flex-col gap-2 overflow-y-auto w-full no-scrollbar items-center fade-mask">
-      <div className="hidden lg:flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full h-full lg:h-full overflow-hidden items-center fade-mask">
+      <div className="hidden lg:flex flex-col gap-2 w-full flex-1 overflow-y-auto no-scrollbar">
         <AnimatePresence initial={false}>
           {moods.map((mood) => (
             <motion.div
@@ -58,7 +61,7 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
         </AnimatePresence>
       </div>
 
-      <div className="w-full p-0 lg:hidden mt-6">
+      <div className="w-full p-0 lg:hidden mt-6 shrink-0">
         <Swiper
           modules={[Navigation, Pagination]}
           pagination={{
@@ -70,17 +73,11 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
           centeredSlides={true}
           slidesPerView={2}
           spaceBetween={8}
-          breakpoints={{
-            480: { slidesPerView: 3, spaceBetween: 8 },
-            640: { slidesPerView: 4, spaceBetween: 8 },
-            768: { slidesPerView: 5, spaceBetween: 12 },
-            900: { slidesPerView: 6, spaceBetween: 12 },
-          }}
         >
           {moods.map((mood, index) => (
             <SwiperSlide
               key={mood.id || index}
-              className="group"
+              className="group w-auto"
               aria-label={`Slide ${index + 1}`}
             >
               <MoodCard
