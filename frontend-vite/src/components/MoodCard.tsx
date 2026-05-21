@@ -117,13 +117,13 @@ export const MoodCard = ({
             isSelected ? "border-lavender-300" : "border-transparent"
           }`}
         >
-          <div className="w-10 h-10">
+          <div className="w-8 h-8">
             <DotLottieReact data={lottie} renderConfig={{ autoResize: true }} />
           </div>
-          <span className="mt-2 text-sm font-bold h-4 text-black">
+          <span className="mt-2 text-xs font-bold h-4 text-black">
             {formattedMood}
           </span>
-          <span className="mt-2 text-sm text-gray-500">
+          <span className="mt-2 text-xs text-gray-500">
             {finalFormattedDateMobile}
           </span>
         </button>
