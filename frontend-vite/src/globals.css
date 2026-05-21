@@ -11,6 +11,9 @@
   --color-midnight-200: #c6c5c5;
   --color-midnight-300: #6c757d;
   --color-midnight-400: #2e2f39;
+
+  --breakpoint-xs: 480px;
+  --breakpoint-2xs: 360px;
 }
 
 @layer base {
