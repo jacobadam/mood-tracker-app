@@ -41,7 +41,7 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const [backgroundColor, setBackgroundColor] = useState<string[] | string>(
+  const [backgroundColor, setBackgroundColor] = useState<string>(
     `linear-gradient(${moodConfigs[mood].targetColors})`,
   );
 
