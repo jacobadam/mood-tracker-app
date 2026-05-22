@@ -10,11 +10,11 @@ export const SadMoodConfig: MoodConfig = {
       type: "path",
       d: "M133.857 277.661C28.0058 233.868 -83.7275 366.588 -83.7275 366.588L-9.6366 471.773H516.026L518.005 378.514C518.005 378.514 498.418 375.967 490.753 374.177C374.711 347.088 241.111 322.035 133.857 277.661Z",
       fill: "url(#paint1_linear_51_4607)",
-      initial: { y: 170 },
-      animate: { y: 0, x: [0, -20, 0] },
-      exit: { y: 170 },
+      initial: { y: 190 },
+      animate: { y: 90, x: [0, -20, 0] },
+      exit: { y: 220 },
       transition: {
-        duration: 4,
+        duration: 3,
         x: {
           duration: 6,
           repeat: Infinity,
@@ -26,11 +26,11 @@ export const SadMoodConfig: MoodConfig = {
       type: "path",
       d: "M748.5 332.436C1022.21 330.665 1007 422.268 1007 422.268V567.509H-81L-75.8576 429.275C-75.8576 429.275 181.442 441.643 269.377 429.275C439.935 405.285 628.099 333.215 748.5 332.436Z",
       fill: "url(#paint2_linear_51_4607)",
-      initial: { y: 50 },
-      animate: { y: -30, x: [0, 20, 0] },
-      exit: { y: 50, transition: { duration: 3 } },
+      initial: { y: 90 },
+      animate: { y: 0, x: [0, 20, 0] },
+      exit: { y: 100, transition: { duration: 3 } },
       transition: {
-        duration: 4,
+        duration: 3,
         x: {
           duration: 6,
           repeat: Infinity,
