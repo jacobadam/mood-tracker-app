@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useEffectEvent } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import gsap from "gsap";
 import { PleasantMoodConfig } from "../mood-configs/PleasantMoodConfig";
@@ -45,23 +45,11 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
     `linear-gradient(${moodConfigs[mood].targetColors})`,
   );
 
-  console.log("hit outside of useEffect");
-
-  const updateBackgroundColor = useEffectEvent(
-    (updatedBackgroundColor: string[]) => {
-      console.log(updatedBackgroundColor, "<-- BG COLOR In useEffectEvent");
-      setBackgroundColor(updatedBackgroundColor);
-    },
-  );
-
   useEffect(() => {
-    console.log("hit inside useEffect");
-
     if (mood && mood !== currentConfig.id) {
-      console.log("trigger inside cond");
       const backgroundColor = moodConfigs[mood].targetColors;
 
-      updateBackgroundColor(backgroundColor);
+      setBackgroundColor(backgroundColor);
 
       gsap.to(backgroundRef.current, {
         duration: 5,
@@ -99,7 +87,7 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
     >
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
         <p
-          className={`text-xs md:text-sm font-semibold tracking-[0.1em] text-center mb-0 ${
+          className={`text-xs md:text-sm font-semibold tracking-widest text-center mb-0 ${
             mood === "PLEASANT" ? "text-midnight-300" : "text-white"
           }`}
         >
