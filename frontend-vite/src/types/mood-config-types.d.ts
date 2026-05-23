@@ -1,9 +1,3 @@
-// mood-config-types.ts
-
-export type HexColor = `#${string}`;
-
-export type TargetColors = [HexColor, HexColor];
-
 export type LinearGradientStop = {
   stopColor: string;
   offset?: number;
@@ -37,7 +31,7 @@ export type MoodElement = {
 export type MoodConfig = {
   id: string;
   backgroundGradientId: string;
-  targetColors: TargetColors;
+  targetColors: string[];
   elements: MoodElement[];
   linearGradients: LinearGradient[];
 };
