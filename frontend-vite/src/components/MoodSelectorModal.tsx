@@ -41,35 +41,35 @@ export const MoodSelectorModal = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
-      <div className="relative p-5 sm:p-8 rounded-2xl bg-lavender-100 md:w-full md:max-w-md lg:max-w-3xl xl:max-w-3xl sm:max-w-lg">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/85 z-50">
+      <div className="relative p-1 xxs:p-4 sm:p-8 rounded-2xl bg-lavender-100 md:w-full md:max-w-md lg:max-w-3xl xl:max-w-3xl sm:max-w-lg">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 appearance-none border-none bg-transparent p-0"
+          className="absolute top-2 right-2 xxs:top-4 xxs:right-4 appearance-none border-none bg-transparent p-0"
           aria-label="Close"
         >
           <img src={"/close.svg"} alt="Close" className="w-6 h-6" />
         </button>
 
-        <h2 className="text-lg lg:text-4xl font-extrabold mb-4 text-center pb-8">
+        <h2 className="text-sm xxs:text-lg lg:text-4xl font-extrabold my-4 text-center pb-8">
           What mood are you in today?
         </h2>
 
-        <div className="flex justify-between gap-4 mt-4">
+        <div className="flex justify-between gap-2 xxs:gap-4 mt-4">
           {moodButtons.map((mood, index) => (
             <button
               key={index}
-              className="flex flex-col items-center justify-center w-24 h-24 sm:w-40 sm:h-40 lg:w-[252px] lg:h-[242px] bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl"
+              className="flex flex-col items-center justify-center w-24 h-24 sm:w-40 sm:h-40 lg:w-63 lg:h-60.5 bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl"
               onClick={() => handleMoodSelect(mood.type)}
             >
-              <div className="w-8 h-8 sm:w-16 sm:h-16">
+              <div className="w-8 h-8 xs:w-12 xs:h-12 lg:w-16 lg:h-16">
                 <DotLottieReact
                   data={lottieMap[mood.animation]}
                   autoplay
                   loop
                 />
               </div>
-              <span className="mt-2 text-base font-bold h-4 text-black">
+              <span className="mt-2 text-sm sm:text-base font-semibold sm:font-bold h-4 text-black">
                 {mood.label}
               </span>
             </button>
