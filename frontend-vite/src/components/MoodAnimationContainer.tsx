@@ -42,7 +42,7 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
     return `linear-gradient(${colors.join(", ")})`;
   };
 
-  const [exit, setExit] = useState(false);
+  const exit = mood !== currentConfig.id;
   const backgroundRef = useRef<HTMLDivElement>(null);
   const [backgroundColor] = useState<string>(
     createGradient(moodConfigs[mood].targetColors),
@@ -66,8 +66,6 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
           ease: "power2.inOut",
         });
       }
-
-      setExit(true);
     }
   }, [mood, currentConfig.id]);
 
@@ -75,7 +73,6 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
     if (mood && moodConfigs[mood]) {
       setCurrentConfig(() => moodConfigs[mood]);
     }
-    setExit(false);
   };
 
   return (
