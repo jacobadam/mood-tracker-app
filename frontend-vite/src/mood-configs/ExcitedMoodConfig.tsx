@@ -15,7 +15,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       fill: "url(#paint4_linear_51_4614)",
       initial: { y: 430, duration: 3 },
       animate: { y: 0, scale: [1, 1.6, 1] },
-      exit: { y: 430, transition: { duration: 4.2 } },
+      exit: { y: 450, transition: { duration: 4.2 } },
       transition: {
         duration: 5,
         scale: {

@@ -12,7 +12,7 @@ export const SadMoodConfig: MoodConfig = {
       fill: "url(#paint1_linear_51_4607)",
       initial: { y: 170 },
       animate: { y: 40, x: [0, -20, 0] },
-      exit: { y: 170 },
+      exit: { y: 180 },
       transition: {
         duration: 4,
         x: {
@@ -28,7 +28,7 @@ export const SadMoodConfig: MoodConfig = {
       fill: "url(#paint2_linear_51_4607)",
       initial: { y: 50 },
       animate: { y: -10, x: [0, 20, 0] },
-      exit: { y: 50, transition: { duration: 3 } },
+      exit: { y: 50, transition: { duration: 2.2 } },
       transition: {
         duration: 4,
         x: {
