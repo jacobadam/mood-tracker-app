@@ -38,22 +38,23 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
   const [currentConfig, setCurrentConfig] = useState<MoodConfig>(
     moodConfigs[mood],
   );
+  const createGradient = (colors: string[]) => {
+    return `linear-gradient(${colors.join(", ")})`;
+  };
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const [backgroundColor, setBackgroundColor] = useState<string>(
-    `linear-gradient(${moodConfigs[mood].targetColors})`,
+  const [backgroundColor] = useState<string>(
+    createGradient(moodConfigs[mood].targetColors),
   );
 
   useEffect(() => {
     if (mood && mood !== currentConfig.id) {
-      const backgroundColor = moodConfigs[mood].targetColors;
-
-      setBackgroundColor(`linear-gradient(${backgroundColor})`);
+      const newbackgroundColor = createGradient(moodConfigs[mood].targetColors);
 
       gsap.to(backgroundRef.current, {
         duration: 5,
-        backgroundImage: `linear-gradient(${backgroundColor})`,
+        backgroundImage: newbackgroundColor,
         ease: "power2.inOut",
       });
 
@@ -95,12 +96,12 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
         </p>
 
         <p
-          className={`text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold tracking-[-0.015em] text-center mb-0 mt-4 ${moodTexts[mood].color}`}
+          className={`text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold tracking-wide text-center mb-0 mt-4 ${moodTexts[mood].color}`}
         >
           {moodTexts[mood].title}
         </p>
         <p
-          className={`text-sm md:text-base 2xl:text-lg tracking-[-0.01em] text-center mb-8 ${moodTexts[mood].color}`}
+          className={`text-sm md:text-base 2xl:text-lg tracking-[-0.01em] text-center mb-4 ${moodTexts[mood].color}`}
         >
           {moodTexts[mood].description}
         </p>
