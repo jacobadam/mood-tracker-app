@@ -41,7 +41,7 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
 
   const [exit, setExit] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const [backgroundColor, setBackgroundColor] = useState(
+  const [backgroundColor, setBackgroundColor] = useState<string>(
     `linear-gradient(${moodConfigs[mood].targetColors})`,
   );
 
@@ -49,7 +49,7 @@ export const MoodAnimationContainer = ({ mood = "PLEASANT" }: MoodProps) => {
     if (mood && mood !== currentConfig.id) {
       const backgroundColor = moodConfigs[mood].targetColors;
 
-      setBackgroundColor(backgroundColor);
+      setBackgroundColor(`linear-gradient(${backgroundColor})`);
 
       gsap.to(backgroundRef.current, {
         duration: 5,
