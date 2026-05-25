@@ -1,9 +1,6 @@
 import type { MoodEntry, MoodTypeUnion, NewMood } from "../types/mood-types";
 
-const API_URL: string =
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
-    : "http://localhost:8080";
+const API_URL = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
 
 export async function fetchMoods(): Promise<MoodEntry[]> {
   const response = await fetch(`${API_URL}/moods`);
@@ -13,9 +10,7 @@ export async function fetchMoods(): Promise<MoodEntry[]> {
 }
 
 export async function addMood(type: MoodTypeUnion): Promise<MoodEntry> {
-  const mood: NewMood = {
-    type,
-  };
+  const mood: NewMood = { type };
 
   const response = await fetch(`${API_URL}/mood`, {
     method: "POST",
