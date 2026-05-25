@@ -15,7 +15,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       fill: "url(#paint4_linear_51_4614)",
       initial: { y: 430, duration: 3 },
       animate: { y: 0, scale: [1, 1.6, 1] },
-      exit: { y: 530, transition: { duration: 5 } },
+      exit: { y: 430, transition: { duration: 4.2 } },
       transition: {
         duration: 5,
         scale: {
@@ -32,7 +32,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       d: "M-41.864 319.651C-41.864 319.651 20.8848 280.259 68.28 280.259C130.973 280.259 172.889 333.982 223.602 333.982C282.705 333.982 290.143 318.458 323.285 318.458C370.128 318.458 431.952 347.568 464.557 337.062C490.868 328.584 522.544 311.459 522.544 311.459V455.252L-41.864 463.894V319.651Z",
       fill: "url(#paint2_linear_51_4614)",
       initial: { y: 250 },
-      animate: { y: 50, x: [0, 40, 0] },
+      animate: { y: 30, x: [0, 40, 0] },
       exit: { y: 200, transition: { duration: 2.4, delay: 2.8 } },
       transition: {
         duration: 4,
@@ -50,7 +50,7 @@ export const ExcitedMoodConfig: MoodConfig = {
       d: "M535.089 443.849C535.089 443.849 532.114 349.862 464.682 335.166C405.724 326.426 360.269 394.26 307.549 394.26C246.107 394.26 217.151 354.892 157.496 354.892C113.987 354.892 71.5016 389.119 12.2527 377.255C-119.349 350.903 -51.6566 346.382 -51.6566 346.382V495.774L535.089 504.753V443.849Z",
       fill: "url(#paint3_linear_51_4614)",
       initial: { y: 250 },
-      animate: { y: 50, x: [0, -40, 0] },
+      animate: { y: 30, x: [0, -40, 0] },
       exit: { y: 200, transition: { duration: 2.4, delay: 2.8 } },
       transition: {
         duration: 4,

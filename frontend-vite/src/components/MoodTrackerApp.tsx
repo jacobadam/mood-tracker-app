@@ -23,12 +23,12 @@ export const MoodTrackerApp = () => {
   };
 
   return (
-    <div className="relative flex flex-col lg:flex-row min-h-screen lg:h-screen items-stretch justify-center p-3 lg:p-12 box-border lg:gap-8">
-      <div className="flex items-center justify-center w-full max-w-155 aspect-square mx-auto lg:mx-0 lg:h-full">
+    <div className="relative flex flex-col lg:flex-row min-h-screen lg:h-screen items-center justify-center p-3 lg:p-12 box-border lg:gap-8">
+      <div className="flex items-center justify-center w-full max-w-155 aspect-square mx-auto lg:mx-0 lg:max-h-155">
         <MoodAnimationContainer mood={selectedMood} />
       </div>
 
-      <div className="relative flex max-w-full lg:max-w-[35%] h-full flex-col">
+      <div className="relative flex flex-col max-w-full lg:max-w-[35%] max-h-155">
         <MoodLogContainer onMoodSelect={handleMoodSelect} />
         <LogMoodButton onMoodSelect={handleMoodSelect} />
       </div>
