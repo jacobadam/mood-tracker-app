@@ -1,14 +1,17 @@
-export enum MoodType {
-  SAD = "SAD",
-  EXCITED = "EXCITED",
-  PLEASANT = "PLEASANT",
-}
-export interface Mood {
+export const Mood = {
+  SAD: "SAD",
+  EXCITED: "EXCITED",
+  PLEASANT: "PLEASANT",
+} as const;
+
+export type MoodTypeUnion = (typeof Mood)[keyof typeof Mood];
+
+export type MoodEntry = {
   id: number;
   createdAt: string;
-  type: MoodType;
-}
+  type: MoodTypeUnion;
+};
 
 export type NewMood = {
-  type: MoodType;
+  type: MoodTypeUnion;
 };

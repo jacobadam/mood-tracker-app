@@ -1,5 +1,5 @@
 import React from "react";
-import Lottie from "react-lottie";
+// import Lottie from "react-lottie";
 import pleasantMood from "../../src/assets/lottie/pleasant.json";
 import sadMood from "../../src/assets/lottie/sad.json";
 import excitedMood from "../../src/assets/lottie/excited.json";
@@ -61,14 +61,14 @@ const MoodSelectorModal: React.FC<MoodSelectorModalProps> = ({
               onClick={() => handleMoodSelect(mood.type)}
             >
               <div className="w-8 h-8 sm:w-16 sm:h-16">
-                <Lottie
+                {/* <Lottie
                   options={{
                     loop: true,
                     autoplay: true,
                     animationData: mood.animation,
                     rendererSettings: { preserveAspectRatio: "xMidYMid slice" },
                   }}
-                />
+                /> */}
               </div>
               <span className="mt-2 text-base font-bold h-4 text-black">
                 {mood.label}
