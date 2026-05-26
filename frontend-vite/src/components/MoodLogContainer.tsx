@@ -33,12 +33,14 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
   };
 
   if (loading)
-    return <div className="lg:mb-4 font-semibold">Loading moods...</div>;
+    return <div className="lg:mb-4 mt-4 font-semibold">Loading moods...</div>;
   if (error && !moods.length)
     return (
-      <div className="lg:mb-4 font-semibold">{"Failed to fetch moods"}</div>
+      <div className="lg:mb-4 mt-4 font-semibold">
+        {"Failed to fetch moods"}
+      </div>
     );
-  if (error) return <div className="lg:mb-4 font-semibold">{error}</div>;
+  if (error) return <div className="lg:mb-4 mt-4 font-semibold">{error}</div>;
 
   return (
     <div className="flex flex-col gap-2 w-full h-full lg:h-full overflow-hidden items-center fade-mask">
