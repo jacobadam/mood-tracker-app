@@ -2,18 +2,24 @@
 
 ## Overview
 
-The Mood Tracker App allows users to select and log their moods with smooth animated transitions between different mood states. The app features an SVG-based background, where the movement of elements is based on the selected mood. Mood data is stored in a PostgreSQL database and updated in real-time using a Socket.IO.
+The Mood Tracker App allows users to select and log their moods with animated transitions between states. Each mood triggers corresponding SVG and Lottie animations in the UI. Mood data is persisted in a PostgreSQL database and synchronised in real time using Socket.IO.
 
-This project consists of a frontend built with React, TypeScript, and Tailwind CSS, and a backend built with Node.js, TypeScript, Express, and PostgreSQL.
+The project is split into:
+
+- Frontend: React (Vite), TypeScript, Tailwind CSS
+- Backend: Node.js, TypeScript, Express, PostgreSQL, Socket.IO
+
+The frontend is deployed on Netlify and the backend is hosted on Heroku with a PostgreSQL database attached.
 
 ## Technologies Used
 
-- **Frontend:** React, TypeScript, Vite, Tailwind CSS, GSAP, Motion, Socket.IO Client, React Router DOM, dotLottie
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS, GSAP, Motion, Socket.IO Client, React Router DOM, DotLottie
 - **Backend:** Node.js, TypeScript, Express, PostgreSQL, Socket.IO
+- **Deployment:** Netlify (frontend), Heroku (backend + database)
 
 ## Getting Started
 
-This project uses npm for package management. Yarn can also be used.
+This project uses pnpm for package management.
 
 ### Installation
 
@@ -23,15 +29,15 @@ This project uses npm for package management. Yarn can also be used.
 ### Backend Setup
 
 1. Navigate to the `backend` directory: `cd backend`
-2. Install dependencies: `npm install` (or `yarn install`)
+2. Install dependencies: `pnpm install`
 3. Ensure PostgreSQL is running. The backend uses environment variables for database configuration (these are included in the repository).
-4. Start the backend: `npm run dev` (for development) or `npm run start` (for production).
+4. Start the backend: `pnpm run dev` (for development) or `pnpm run start` (for production).
 
 ### Frontend Setup
 
-1. Navigate to the `frontend` directory: `cd frontend`
-2. Install dependencies: `npm install` (or `yarn install`)
-3. Start the frontend: `npm start`
+1. Navigate to the `frontend` directory: `cd frontend-vite`
+2. Install dependencies: `pnpm install`
+3. Start the frontend: `pnpm start`
 
 ### Accessing the Frontend
 
