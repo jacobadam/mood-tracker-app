@@ -51,7 +51,7 @@ export const MoodSelectorModal = ({
           <img src={"/close.svg"} alt="Close" className="w-6 h-6" />
         </button>
 
-        <h2 className="text-sm xxs:text-lg lg:text-4xl font-extrabold my-4 text-center pb-8">
+        <h2 className="text-sm xxs:text-lg lg:text-4xl font-extrabold my-4 text-center lg:pb-4">
           What mood are you in today?
         </h2>
 
