@@ -73,7 +73,6 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
           pagination={{
             dynamicBullets: true,
             clickable: true,
-            el: ".custom-pagination",
           }}
           loop={true}
           centeredSlides={true}
@@ -98,7 +97,6 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
           ))}
         </Swiper>
       </div>
-      <div className="custom-pagination lg:hidden"></div>
     </div>
   );
 };

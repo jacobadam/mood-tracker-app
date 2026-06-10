@@ -52,3 +52,7 @@
     rgba(0, 0, 0, 0) 100%
   );
 }
+
+.swiper .swiper-pagination .swiper-pagination-bullet {
+  background: #8582dd;
+}
