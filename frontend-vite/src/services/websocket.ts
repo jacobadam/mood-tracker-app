@@ -1,45 +1,45 @@
-import { io, Socket } from "socket.io-client";
+import { supabase } from "../lib/supabase";
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import type { MoodEntry } from "../types/mood-types";
 
-let socket: Socket | null = null;
-
-const API_URL = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
+let channel: RealtimeChannel | null = null;
 
 export const connectWebSocket = (
   onNewMood?: (mood: MoodEntry) => void,
   onDeleteMood?: (id: number) => void,
 ): void => {
-  if (!socket) {
-    socket = io(API_URL);
+  if (channel) return;
 
-    socket.on("connect", () => {
-      console.log("Connected to WebSocket server");
-    });
-
-    socket.on("moodAdded", (data: MoodEntry) => {
-      console.log("New mood received:", data);
-      onNewMood?.(data);
-    });
-
-    socket.on("moodDeleted", (data: { id: number }) => {
-      console.log("Mood deleted:", data.id);
-      onDeleteMood?.(data.id);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from WebSocket server");
-    });
-
-    socket.on("connect_error", (err: Error) => {
-      console.error("WebSocket connection error:", err.message);
-    });
-  }
+  channel = supabase
+    .channel("moods-changes")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "moods",
+      },
+      (payload) => {
+        onNewMood?.(payload.new as MoodEntry);
+      },
+    )
+    .on(
+      "postgres_changes",
+      {
+        event: "DELETE",
+        schema: "public",
+        table: "moods",
+      },
+      (payload) => {
+        onDeleteMood?.(payload.old.id as number);
+      },
+    )
+    .subscribe();
 };
 
 export const disconnectWebSocket = (): void => {
-  if (socket) {
-    socket.disconnect();
-    console.log("Disconnected from WebSocket server");
-    socket = null;
+  if (channel) {
+    void supabase.removeChannel(channel);
+    channel = null;
   }
 };

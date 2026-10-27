@@ -34,8 +34,11 @@ export const MoodSelectorModal = ({
     ["EXCITED"]: excitedLottie,
   };
 
-  const handleMoodSelect = (mood: MoodTypeUnion) => {
-    postMood(mood);
+  const handleMoodSelect = async (mood: MoodTypeUnion) => {
+    const newMood = await postMood(mood);
+
+    if (!newMood) return;
+
     onMoodSelect(mood);
     onClose();
   };
@@ -59,8 +62,9 @@ export const MoodSelectorModal = ({
           {moodButtons.map((mood, index) => (
             <button
               key={index}
-              className="flex flex-col items-center justify-center w-24 h-24 sm:w-40 sm:h-40 lg:w-63 lg:h-60.5 bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl"
-              onClick={() => handleMoodSelect(mood.type)}
+              disabled={loading}
+              className="flex flex-col items-center justify-center w-24 h-24 sm:w-40 sm:h-40 lg:w-63 lg:h-60.5 bg-white p-2 lg:p-6 rounded-3xl hover:bg-lavender-200 border-none text-base lg:text-2xl disabled:opacity-50"
+              onClick={() => void handleMoodSelect(mood.type)}
             >
               <div className="w-8 h-8 xs:w-12 xs:h-12 lg:w-16 lg:h-16">
                 <DotLottieReact

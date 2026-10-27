@@ -3,54 +3,68 @@ import type { MoodEntry } from "../types/mood-types";
 import { fetchMoods } from "../services/moodTrackerApi";
 import { connectWebSocket, disconnectWebSocket } from "../services/websocket";
 
+const sortMoods = (moods: MoodEntry[]): MoodEntry[] =>
+  [...moods].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+
 export function useMoods() {
   const [moods, setMoods] = useState<MoodEntry[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let active = true;
+
     const loadMoods = async () => {
       try {
-        const fetchedMoods: MoodEntry[] = await fetchMoods();
+        const fetchedMoods = await fetchMoods();
 
-        const sortedMoods = fetchedMoods.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        );
+        if (active) {
+          setMoods((previous) => {
+            // Preserve any realtime events received during loading.
+            const merged = new Map(fetchedMoods.map((mood) => [mood.id, mood]));
 
-        setMoods(sortedMoods);
+            previous.forEach((mood) => {
+              merged.set(mood.id, mood);
+            });
+
+            return sortMoods([...merged.values()]);
+          });
+        }
       } catch (e) {
-        if (e instanceof Error) {
-          setError(e.message);
-        } else {
-          setError("Unknown error");
+        if (active) {
+          setError(e instanceof Error ? e.message : "Unknown error");
         }
       } finally {
-        setLoading(false);
+        if (active) setLoading(false);
       }
     };
 
-    loadMoods();
-
     const handleNewMood = (newMood: MoodEntry) => {
-      setMoods((prevMoods) => {
-        const updatedMoods = [newMood, ...prevMoods].sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        );
-        return [...updatedMoods];
-      });
+      if (!active) return;
+
+      setMoods((previous) =>
+        sortMoods([
+          newMood,
+          ...previous.filter((mood) => mood.id !== newMood.id),
+        ]),
+      );
     };
 
-    const handleDeleteMood = async (deletedMoodId: number) => {
-      setMoods((prevMoods) =>
-        prevMoods.filter((mood) => mood.id !== deletedMoodId),
+    const handleDeleteMood = (deletedMoodId: number) => {
+      if (!active) return;
+
+      setMoods((previous) =>
+        previous.filter((mood) => mood.id !== deletedMoodId),
       );
     };
 
     connectWebSocket(handleNewMood, handleDeleteMood);
+    void loadMoods();
 
     return () => {
+      active = false;
       disconnectWebSocket();
     };
   }, []);

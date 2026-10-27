@@ -1,38 +1,31 @@
-import type { MoodEntry, MoodTypeUnion, NewMood } from "../types/mood-types";
-
-const API_URL = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
+import { supabase } from "../lib/supabase";
+import type { MoodEntry, MoodTypeUnion } from "../types/mood-types";
 
 export async function fetchMoods(): Promise<MoodEntry[]> {
-  const response = await fetch(`${API_URL}/moods`);
+  const { data, error } = await supabase.from("moods").select("*");
 
-  if (!response.ok) throw new Error("Failed to fetch moods");
-  return response.json();
+  if (error) throw new Error(`Failed to fetch moods: ${error.message}`);
+
+  return data;
 }
 
 export async function addMood(type: MoodTypeUnion): Promise<MoodEntry> {
-  const mood: NewMood = { type };
+  const { data, error } = await supabase
+    .from("moods")
+    .insert({
+      type,
+      createdAt: new Date().toISOString(),
+    })
+    .select()
+    .single();
 
-  const response = await fetch(`${API_URL}/mood`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(mood),
-  });
+  if (error) throw new Error(`Failed to add mood: ${error.message}`);
 
-  if (!response.ok) {
-    throw new Error("Failed to add mood");
-  }
-
-  return response.json();
+  return data;
 }
 
 export async function deleteMood(id: number): Promise<void> {
-  const response = await fetch(`${API_URL}/mood/${id}`, {
-    method: "DELETE",
-  });
+  const { error } = await supabase.from("moods").delete().eq("id", id);
 
-  if (!response.ok) {
-    throw new Error("Failed to delete mood");
-  }
+  if (error) throw new Error(`Failed to delete mood: ${error.message}`);
 }
