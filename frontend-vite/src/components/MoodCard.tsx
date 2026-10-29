@@ -110,33 +110,36 @@ export const MoodCard = ({
         </div>
       </div>
 
-      <div className="lg:hidden flex flex-col justify-center">
+      <div className="lg:hidden relative">
         <button
           onClick={() => onMoodSelect(mood)}
-          className={`flex flex-col items-center justify-center bg-white p-4 rounded-3xl hover:bg-lavender-200 border-none text-2xl  ${
+          className={`flex w-full flex-col items-center justify-center bg-white p-4 rounded-3xl hover:bg-lavender-200 border-2 text-2xl ${
             isSelected ? "border-lavender-300" : "border-transparent"
           }`}
         >
           <div className="w-8 h-8">
             <DotLottieReact data={lottie} renderConfig={{ autoResize: true }} />
           </div>
+
           <span className="mt-2 text-xs font-bold h-4 text-black">
             {formattedMood}
           </span>
+
           <span className="mt-2 text-xs text-gray-500">
             {finalFormattedDateMobile}
           </span>
         </button>
 
-        <button
-          className={`flex justify-center items-center appearance-none border-none  ${
-            isSelected ? "opacity-100" : "opacity-0"
-          }`}
-          aria-label="Delete"
-          onClick={() => removeMood(moodId)}
-        >
-          <img src={"/close.svg"} alt="Close" className="mt-1 w-5 h-5" />
-        </button>
+        {isSelected && (
+          <button
+            type="button"
+            className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100"
+            aria-label={`Delete ${formattedMood} mood`}
+            onClick={() => void removeMood(moodId)}
+          >
+            <img src="/close.svg" alt="" className="w-4 h-4" />
+          </button>
+        )}
       </div>
     </>
   );

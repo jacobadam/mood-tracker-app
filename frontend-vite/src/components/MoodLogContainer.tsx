@@ -8,7 +8,7 @@ import { useMoods } from "../hooks/useMoods";
 import type { MoodTypeUnion, MoodEntry } from "../types/mood-types";
 import type { LottieData } from "../types/lottie-types";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -69,7 +69,7 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
 
       <div className="w-full p-0 lg:hidden mt-6 shrink-0">
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Pagination]}
           pagination={{
             dynamicBullets: true,
             clickable: true,
@@ -78,6 +78,7 @@ export const MoodLogContainer = ({ onMoodSelect }: MoodLogContainerProps) => {
           centeredSlides={true}
           slidesPerView={2}
           spaceBetween={8}
+          className="mood-swiper"
         >
           {moods.map((mood, index) => (
             <SwiperSlide

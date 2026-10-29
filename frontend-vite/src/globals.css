@@ -55,4 +55,15 @@
 
 .swiper .swiper-pagination .swiper-pagination-bullet {
   background: #8582dd;
+  position: relative;
+  bottom: auto;
+  margin-top: 12px;
+}
+
+.mood-swiper.swiper {
+  padding-bottom: 20px;
+}
+
+.mood-swiper.swiper .swiper-pagination.swiper-pagination-bullets {
+  bottom: 4px;
 }
