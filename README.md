@@ -2,92 +2,158 @@
 
 ## Overview
 
-The Mood Tracker App allows users to select and log their moods with animated transitions between states. Each mood triggers corresponding SVG and Lottie animations in the UI. Mood data is persisted in a PostgreSQL database and synchronised in real time using Socket.IO.
+Mood Tracker is an interactive application for logging, viewing, and deleting moods. I designed and developed custom SVG and Lottie animations for three mood states: Pleasant, Sad, and Excited. Users can switch between animations through the interface or URL query parameters.
 
-The project is split into:
+Mood entries are stored in Supabase PostgreSQL, with Supabase Realtime synchronising additions and deletions across connected clients.
 
-- Frontend: React (Vite), TypeScript, Tailwind CSS
-- Backend: Node.js, TypeScript, Express, PostgreSQL, Socket.IO
-
-The frontend is deployed on Netlify and the backend is hosted on Heroku with a PostgreSQL database attached.
+**Live site:** [mood-tracker-app.netlify.app](https://mood-tracker-app.netlify.app/)
 
 ## Technologies Used
 
-- **Frontend:** React, TypeScript, Vite, Tailwind CSS, GSAP, Motion, Socket.IO Client, React Router DOM, DotLottie
-- **Backend:** Node.js, TypeScript, Express, PostgreSQL, Socket.IO
-- **Deployment:** Netlify (frontend), Heroku (backend + database)
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS
+- **Animations:** GSAP, Motion, SVG, DotLottie
+- **Database:** Supabase PostgreSQL
+- **Real-time updates:** Supabase Realtime
+- **Hosting:** Netlify
+
+## Features
+
+- Original SVG and Lottie animations for Pleasant, Sad, and Excited mood states
+- Add, view, and delete mood entries
+- Real-time updates across open sessions and devices
+- Mood history with dates and times
+- Mood selection via the UI or URL query parameters
+- Responsive layouts for desktop, tablet, and mobile
+
+## Project Structure
+
+The Vite frontend communicates directly with Supabase; no separate application server is required.
+
+```text
+mood-tracker-app/
+├── frontend-vite/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   │   └── supabase.ts
+│   │   └── services/
+│   ├── package.json
+│   └── vite.config.ts
+└── README.md
+```
 
 ## Getting Started
 
-This project uses pnpm for package management.
+This project uses **pnpm** for package management.
+
+### Prerequisites
+
+- Node.js
+- pnpm
+- A Supabase project with a `moods` table and appropriate Row Level Security (RLS) policies
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/jacobadam/mood-tracker-app`
-2. Navigate to the project directory: `cd mood-tracker-app`
+1. Clone the repository:
 
-### Backend Setup
+   ```bash
+   git clone https://github.com/jacobadam/mood-tracker-app.git
+   ```
 
-1. Navigate to the `backend` directory: `cd backend`
-2. Install dependencies: `pnpm install`
-3. Ensure PostgreSQL is running. The backend uses environment variables for database configuration (these are included in the repository).
-4. Start the backend: `pnpm run dev` (for development) or `pnpm run start` (for production).
+2. Navigate to the frontend:
 
-### Frontend Setup
+   ```bash
+   cd mood-tracker-app/frontend-vite
+   ```
 
-1. Navigate to the `frontend` directory: `cd frontend-vite`
-2. Install dependencies: `pnpm install`
-3. Start the frontend: `pnpm start`
+3. Install dependencies:
 
-### Accessing the Frontend
+   ```bash
+   pnpm install
+   ```
 
-The frontend will typically be accessible at `http://localhost:5173` during development.
+### Environment Variables
 
-### Query Parameter Support
+Create a `.env.local` file in `frontend-vite/`:
 
-The app supports mood state switching through URL parameters. To change the mood:
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
 
-- Visit `http://localhost:5173/?mood=PLEASANT` to set the mood to PLEASANT.
-- Visit `http://localhost:5173/?mood=SAD` to set the mood to SAD.
-- Visit `http://localhost:5173/?mood=EXCITED` to set the mood to EXCITED.
+Use the project URL and publishable key from your Supabase dashboard. The publishable key is intended for client-side use; access is controlled using RLS. Never place a Supabase secret or service-role key in the frontend.
 
-#### How It Works
+### Run Locally
 
-- **Mood Selection:** Users can select a mood by clicking on a mood in the mood log container or by adding a new mood using the mood log button. The displayed mood can also be controlled via the `mood` query parameter in the URL.
+```bash
+pnpm dev
+```
 
-* **Real-time Mood Updates:** The displayed mood updates in real-time when a new mood is added via the mood log button or when a mood is selected from the mood log container.
+Vite typically serves the application at [http://localhost:5173](http://localhost:5173).
 
-## Backend API
+### Production Build
 
-The frontend interacts with the backend API using the following endpoints:
+```bash
+pnpm build
+```
 
-- `GET /moods`: Fetches all moods.
-- `POST /mood`: Adds a new mood.
-- `DELETE /mood/:id`: Deletes a mood by ID.
+## Database and Realtime
 
-## Real-time Communication (Socket.IO)
+### Mood Data
 
-The frontend and backend communicate using Socket.IO for real-time updates. This connection is used to:
+The `moods` table uses the following schema:
 
-- Initially fetch mood data when the frontend loads.
-- Notify the frontend when a new mood is added or an existing mood is deleted.
+| Column      | Type        | Description                     |
+| ----------- | ----------- | ------------------------------- |
+| `id`        | integer     | Auto-generated primary key      |
+| `createdAt` | timestamptz | Timestamp of the mood entry     |
+| `type`      | text        | `PLEASANT`, `SAD`, or `EXCITED` |
+
+The frontend uses `@supabase/supabase-js` for the database operations used by the app:
+
+- **SELECT:** Fetch recorded moods
+- **INSERT:** Add a mood
+- **DELETE:** Remove a mood
+
+The app uses a shared mood history without individual user accounts. Supabase RLS policies control public access to the table.
+
+### Real-time Synchronisation
+
+Supabase Realtime subscribes to PostgreSQL `INSERT` and `DELETE` events on the `moods` table. When a mood is created or deleted, connected clients update their local state without refreshing the page.
+
+## Mood Selection
+
+Select an existing mood in the history or add a new one to change the displayed animation. Mood state can also be controlled using the `mood` query parameter:
+
+- [Pleasant](http://localhost:5173/?mood=PLEASANT): `?mood=PLEASANT`
+- [Sad](http://localhost:5173/?mood=SAD): `?mood=SAD`
+- [Excited](http://localhost:5173/?mood=EXCITED): `?mood=EXCITED`
+
+## Deployment
+
+The React frontend is deployed on **Netlify**. **Supabase** provides the PostgreSQL database and Realtime infrastructure.
+
+Configure these variables in your Netlify site settings before building:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
 
 ## Contributing
 
-Contributions are welcome! We encourage you to fork this repository, create a new branch for your changes, and submit a pull request.
-
-### How to Contribute
+Contributions are welcome:
 
 1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/your-feature`
-3. Make your changes.
-4. Commit your changes: `git commit -m "Add your commit message"`
-5. Push to your branch: `git push origin feature/your-feature`
-6. Submit a pull request through the GitHub website.
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make and test your changes.
+4. Commit: `git commit -m "Describe your changes"`
+5. Push: `git push origin feature/your-feature`
+6. Open a pull request on GitHub.
 
 ## Contact
-
-For any inquiries related to the development of this project, feel free to reach out:
 
 - **Email:** [jacobnevitt@gmail.com](mailto:jacobnevitt@gmail.com)
 - **LinkedIn:** [linkedin.com/in/jacobnevitt](https://www.linkedin.com/in/jacobnevitt/)
@@ -95,4 +161,4 @@ For any inquiries related to the development of this project, feel free to reach
 
 ## Live Site
 
-The website is available at: **[mood-tracker-app.netlify.app](https://mood-tracker-app.netlify.app/)**
+[mood-tracker-app.netlify.app](https://mood-tracker-app.netlify.app/)
